@@ -2,52 +2,42 @@ package com.smart_jobs.web.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
+import com.sun.istack.NotNull;
 
 @Entity
 @Table(name = "Login")
 public class Login {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "LoginId")
-	private Long loginId;
-
-	private String un;
-
+	@Column(name="user_email")
+	private String user_id;
+	
+	@NotNull
 	private String pwd;
 
+	@NotNull
 	private String role;
-	
+
 	public Login() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Login(Long loginId, String un, String pwd, String role) {
+	public Login(String user_id, String pwd, String role) {
 		super();
-		this.loginId = loginId;
-		this.un = un;
+		this.user_id = user_id;
 		this.pwd = pwd;
 		this.role = role;
 	}
 
-	public Long getLoginId() {
-		return loginId;
+	public String getUser_id() {
+		return user_id;
 	}
 
-	public void setLoginId(Long loginId) {
-		this.loginId = loginId;
-	}
-
-	public String getUn() {
-		return un;
-	}
-
-	public void setUn(String un) {
-		this.un = un;
+	public void setUser_id(String user_id) {
+		this.user_id = user_id;
 	}
 
 	public String getPwd() {
@@ -68,11 +58,8 @@ public class Login {
 
 	@Override
 	public String toString() {
-		return "Login [loginId=" + loginId + ", un=" + un + ", pwd=" + pwd + ", role=" + role + "]";
-	} 
+		return "Login [user_id=" + user_id + ", pwd=" + pwd + ", role=" + role + "]";
+	}
 
-	
-	
-	
-	
+		
 }

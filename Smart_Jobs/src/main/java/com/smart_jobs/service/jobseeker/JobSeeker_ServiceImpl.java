@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.smart_jobs.repository.JobSeeker_Repo;
-import com.smart_jobs.web.model.JobSeeker;
+import com.smart_jobs.web.model.JobSeeker_Personal;
 
 @Service
 @Transactional
@@ -23,7 +23,7 @@ public class JobSeeker_ServiceImpl implements JobSeeker_Service {
 //	}
 
 	@Override
-	public JobSeeker saveJS(JobSeeker js) {
+	public JobSeeker_Personal saveJS(JobSeeker_Personal js) {
 		return jsRepo.save(js);
 	}
 

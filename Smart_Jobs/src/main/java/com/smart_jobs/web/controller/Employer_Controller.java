@@ -17,22 +17,22 @@ import com.smart_jobs.web.model.Login;
 @RestController
 public class Employer_Controller {
 
-	@Autowired
-	Employer_Service empService;
-	
-	@Autowired
-	LoginService loginService;
-	
-	@PostMapping("/registerEmp")
-	public ResponseEntity<Object> registerEmp(@RequestBody Employer emp,Optional<Login> login){
-		login=this.loginService.loginCheck(emp.getLogin().getUn(),emp.getLogin().getPwd());
-		if(login.isEmpty()) {
-			this.empService.saveEmp(emp);
-			return new ResponseEntity<>("Employee"+emp,HttpStatus.CREATED);
-		}
-		else {
-			return new ResponseEntity<>("Employer already exist",HttpStatus.INTERNAL_SERVER_ERROR);
-		}
-		
-	}
+//	@Autowired
+//	Employer_Service empService;
+//	
+//	@Autowired
+//	LoginService loginService;
+//	
+//	@PostMapping("/registerEmp")
+//	public ResponseEntity<Object> registerEmp(@RequestBody Employer emp,Optional<Login> login){
+//		login=this.loginService.loginCheck(emp.getLogin().getUn(),emp.getLogin().getPwd());
+//		if(login.isEmpty()) {
+//			this.empService.saveEmp(emp);
+//			return new ResponseEntity<>("Employee"+emp,HttpStatus.CREATED);
+//		}
+//		else {
+//			return new ResponseEntity<>("Employer already exist",HttpStatus.INTERNAL_SERVER_ERROR);
+//		}
+//		
+//	}
 }

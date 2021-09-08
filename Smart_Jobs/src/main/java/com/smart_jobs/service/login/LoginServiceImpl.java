@@ -14,11 +14,11 @@ public class LoginServiceImpl implements LoginService{
 	@Autowired
 	LoginRepo loginRepo;
 
-	@Override
-	public Optional<Login> loginCheck(String un, String pwd) {
-		Optional<Login> login=loginRepo.findByUnAndPwd(un, pwd);
-		return login;
-	}
+//	@Override
+//	public Optional<Login> loginCheck(String un, String pwd) {
+//		Optional<Login> login=loginRepo.findByUnAndPwd(un, pwd);
+//		return login;
+//	}
 	
 	
 }

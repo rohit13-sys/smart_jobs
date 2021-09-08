@@ -15,23 +15,24 @@ import com.smart_jobs.web.model.Login;
 @RestController
 public class LoginController {
 
-	@Autowired
-	LoginService loginService;
-	
-	@PostMapping("/login")
-	public ResponseEntity<Object> login(@RequestBody Login login) {
-		if(login!=null) {
-			Optional<Login> lData=this.loginService.loginCheck(login.getUn(), login.getPwd());
-			if(lData!=null){
-				String role=lData.get().getRole();
-				return new ResponseEntity<>("Role:"+role,HttpStatus.ACCEPTED); 
-			}
-			else {
-				return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-			}
-				
-		}	
-		else {
-			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-		}
-	}}
+//	@Autowired
+//	LoginService loginService;
+//	
+//	@PostMapping("/login")
+//	public ResponseEntity<Object> login(@RequestBody Login login) {
+//		if(login!=null) {
+//			Optional<Login> lData=this.loginService.loginCheck(login.getUn(), login.getPwd());
+//			if(lData!=null){
+//				String role=lData.get().getRole();
+//				return new ResponseEntity<>("Role:"+role,HttpStatus.ACCEPTED); 
+//			}
+//			else {
+//				return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+//			}
+//				
+//		}	
+//		else {
+//			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+//		}
+//	}
+}

@@ -1,8 +1,6 @@
 package com.smart_jobs.web.model;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -11,57 +9,55 @@ import javax.persistence.Table;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 
+import com.sun.istack.NotNull;
+
 @Entity
-@Table(name = "EmployerReg")
+@Table(name = "Employer_reg")
 public class Employer {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long employerId;
-
-	private String employerFn;
-
-	private String employerLn;
+	private Long employer_no;
 
 	@ManyToOne
-	@JoinColumn(name = "login_id")
-	@Cascade(CascadeType.ALL)
+	@NotNull
+	@JoinColumn(name = "employer_email")
 	private Login login;
+	
+	@NotNull
+	private String employer_name;
+
+	@NotNull
+	private int ph_No;
+
+	@NotNull
+	private Long branch_office_id;
+
+	@ManyToOne
+	@NotNull
+	@JoinColumn(name = "company_id")
+	private Company company;
 
 	public Employer() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Employer(Long employerId, String employerFn, String employerLn, Login login) {
+	public Employer(Long employer_no, Login login, String employer_name, int ph_No, Long branch_office_id,
+			Company company) {
 		super();
-		this.employerId = employerId;
-		this.employerFn = employerFn;
-		this.employerLn = employerLn;
+		this.employer_no = employer_no;
 		this.login = login;
+		this.employer_name = employer_name;
+		this.ph_No = ph_No;
+		this.branch_office_id = branch_office_id;
+		this.company = company;
 	}
 
-	public Long getEmployerId() {
-		return employerId;
+	public Long getEmployer_no() {
+		return employer_no;
 	}
 
-	public void setEmployerId(Long employerId) {
-		this.employerId = employerId;
-	}
-
-	public String getEmployerFn() {
-		return employerFn;
-	}
-
-	public void setEmployerFn(String employerFn) {
-		this.employerFn = employerFn;
-	}
-
-	public String getEmployerLn() {
-		return employerLn;
-	}
-
-	public void setEmployerLn(String employerLn) {
-		this.employerLn = employerLn;
+	public void setEmployer_no(Long employer_no) {
+		this.employer_no = employer_no;
 	}
 
 	public Login getLogin() {
@@ -72,11 +68,43 @@ public class Employer {
 		this.login = login;
 	}
 
+	public String getEmployer_name() {
+		return employer_name;
+	}
+
+	public void setEmployer_name(String employer_name) {
+		this.employer_name = employer_name;
+	}
+
+	public int getPh_No() {
+		return ph_No;
+	}
+
+	public void setPh_No(int ph_No) {
+		this.ph_No = ph_No;
+	}
+
+	public Long getBranch_office_id() {
+		return branch_office_id;
+	}
+
+	public void setBranch_office_id(Long branch_office_id) {
+		this.branch_office_id = branch_office_id;
+	}
+
+	public Company getCompany() {
+		return company;
+	}
+
+	public void setCompany(Company company) {
+		this.company = company;
+	}
+
 	@Override
 	public String toString() {
-		return "Employer [employerId=" + employerId + ", employerFn=" + employerFn + ", employerLn=" + employerLn
-				+ ", login=" + login + "]";
+		return "Employer [employer_no=" + employer_no + ", login=" + login + ", employer_name=" + employer_name
+				+ ", ph_No=" + ph_No + ", branch_office_id=" + branch_office_id + ", company=" + company + "]";
 	}
-	
+
 	
 }
