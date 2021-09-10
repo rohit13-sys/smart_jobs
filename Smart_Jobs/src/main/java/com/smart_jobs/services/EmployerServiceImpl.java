@@ -1,5 +1,6 @@
 package com.smart_jobs.services;
 
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,13 @@ import com.smart_jobs.repository.CompanyRepo;
 import com.smart_jobs.repository.EmployerRepository;
 import com.smart_jobs.web.model.Employer;
 import com.smart_jobs.web.model.Login;
+
+/* @author parthkumar.panchal
+ * @version 1.0
+ * @creation_date 09-09-2021
+ * @copyright sterlite technology Ltd.
+ * @description Service implementation of Employer
+ * */
 
 @Service
 public class EmployerServiceImpl implements EmployerService {

@@ -1,7 +1,5 @@
 package com.smart_jobs.web.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,6 +11,13 @@ import com.smart_jobs.exceptions.EmployerAlreadyExists;
 import com.smart_jobs.exceptions.EmployerNotFound;
 import com.smart_jobs.services.EmployerService;
 import com.smart_jobs.web.model.Employer;
+
+/* @author parthkumar.panchal
+ * @version 1.0
+ * @creation_date 09-09-2021
+ * @copyright sterlite technology Ltd.
+ * @description Controller of Employer
+ * */
 
 @RestController
 @RequestMapping("/Employee")

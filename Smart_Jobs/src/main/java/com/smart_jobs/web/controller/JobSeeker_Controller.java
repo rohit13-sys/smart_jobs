@@ -14,6 +14,7 @@ import com.smart_jobs.service.login.LoginService;
 import com.smart_jobs.web.model.JobSeeker_Personal;
 import com.smart_jobs.web.model.Login;
 
+
 @RestController
 public class JobSeeker_Controller {
 
