@@ -11,6 +11,13 @@ import javax.persistence.Table;
 
 import com.sun.istack.NotNull;
 
+/* @author parthkumar.panchal
+ * @version 1.0
+ * @creation_date 09-09-2021
+ * @copyright sterlite technology Ltd.
+ * 
+ * */
+
 @Entity
 @Table(name = "Company")
 public class Company {
