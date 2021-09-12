@@ -2,6 +2,7 @@ package com.smart_jobs.services;
 
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,7 +33,8 @@ public class EmployerServiceImpl implements EmployerService {
 	@Override
 	public void add(Employer employer) throws EmployerAlreadyExists {
 		// TODO Auto-generated method stub
-		Employer empList = findEmployerByName(employer.getLogin().getUserId());
+		Employer empList;
+		empList = findEmployerByName(employer.getLogin().getUserId());
 		if(empList == null) {
 			System.out.println("Yeah you can add" + employer.getLogin().getUserId());
 			companyRepo.save(employer.getCompany());
@@ -74,11 +76,13 @@ public class EmployerServiceImpl implements EmployerService {
 		}
 	}
 
-	public Employer findEmployerByName(String name) {
+	@Override
+	public Employer findEmployerByName(String email){
 		// TODO Auto-generated method stub
-		System.out.println("login:" + name);
-		return employerRepo.findByLogin_UserId(name);
+		return employerRepo.findByLogin_UserId(email).orElse(null);
 	}
+
+	
 
 
 

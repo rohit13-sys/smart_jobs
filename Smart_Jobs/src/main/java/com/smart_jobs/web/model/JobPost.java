@@ -1,6 +1,7 @@
 package com.smart_jobs.web.model;
 
-import java.util.Date;
+import java.time.LocalDate;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,89 +9,96 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
-import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.CascadeType;
-
 import com.sun.istack.NotNull;
 
+/*
+ * @author Mehul Thakor
+ * @version 1.0
+ * @creation date 9-sept-2021
+ * @copyright Smart Jobs Ltd.
+ * @description This is an entity for Posting jobs 
+ * 
+ */
+
 @Entity
-@Table(name = "job_post")
+@Table(name = "jobPost")
 public class JobPost {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long job_post_id;
+	private Long jobPostId;
 
 	@NotNull
-	private String job_type;
+	private String jobType;
 
-	@ManyToOne
-	@JoinColumn(name = "skill_id")
-	private Skills skills;
+	@OneToMany(mappedBy = "jobPostId")
+	//@JoinColumn(name = "skillId")
+	private Set<Skills> skills;
 
+	
 	private int vacancies;
 
 	@ManyToOne
-	@JoinColumn(name = "employer_id")
-	private Employer employer;
+	@JoinColumn(name = "employerId")
+	private Employer employee;
 
 	@NotNull
-	private double salary_stipend;
+	private double salary;
 
-	@ManyToOne
-	@JoinColumn(name = "company_name")
-	private Company company;
-
-	@NotNull
-	private String office_address;
-
-	private Date posted_date;
+//	@ManyToOne
+//	@JoinColumn(name = "company_name")
+//	private Company company;
 
 	@NotNull
-	private boolean is_active = false;
+	private String officeAddress;
+
+	@NotNull
+	private LocalDate postedDate;
+
+	@NotNull
+	private boolean isActive = false;
 
 	public JobPost() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public JobPost(Long job_post_id, String job_type, Skills skills, int vacancies, Employer employer,
-			double salary_stipend, Company company, String office_address, Date posted_date, boolean is_active) {
+	public JobPost(Long jobPostId, String jobType, Set<Skills> skills, int vacancies, Employer employee, double salary,
+			String officeAddress, LocalDate postedDate, boolean isActive) {
 		super();
-		this.job_post_id = job_post_id;
-		this.job_type = job_type;
+		this.jobPostId = jobPostId;
+		this.jobType = jobType;
 		this.skills = skills;
 		this.vacancies = vacancies;
-		this.employer = employer;
-		this.salary_stipend = salary_stipend;
-		this.company = company;
-		this.office_address = office_address;
-		this.posted_date = posted_date;
-		this.is_active = is_active;
+		this.employee = employee;
+		this.salary = salary;
+		this.officeAddress = officeAddress;
+		this.postedDate = postedDate;
+		this.isActive = isActive;
 	}
 
-	public Long getJob_post_id() {
-		return job_post_id;
+	public Long getJobPostId() {
+		return jobPostId;
 	}
 
-	public void setJob_post_id(Long job_post_id) {
-		this.job_post_id = job_post_id;
+	public void setJobPostId(Long jobPostId) {
+		this.jobPostId = jobPostId;
 	}
 
-	public String getJob_type() {
-		return job_type;
+	public String getJobType() {
+		return jobType;
 	}
 
-	public void setJob_type(String job_type) {
-		this.job_type = job_type;
+	public void setJobType(String jobType) {
+		this.jobType = jobType;
 	}
 
-	public Skills getSkills() {
+	public Set<Skills> getSkills() {
 		return skills;
 	}
 
-	public void setSkills(Skills skills) {
+	public void setSkills(Set<Skills> skills) {
 		this.skills = skills;
 	}
 
@@ -102,60 +110,53 @@ public class JobPost {
 		this.vacancies = vacancies;
 	}
 
-	public Employer getEmployer() {
-		return employer;
+	public Employer getEmployee() {
+		return employee;
 	}
 
-	public void setEmployer(Employer employer) {
-		this.employer = employer;
+	public void setEmployee(Employer employee) {
+		this.employee = employee;
 	}
 
-	public double getSalary_stipend() {
-		return salary_stipend;
+	public double getSalary() {
+		return salary;
 	}
 
-	public void setSalary_stipend(double salary_stipend) {
-		this.salary_stipend = salary_stipend;
+	public void setSalary(double salary) {
+		this.salary = salary;
 	}
 
-	public Company getCompany() {
-		return company;
+	public String getOfficeAddress() {
+		return officeAddress;
 	}
 
-	public void setCompany(Company company) {
-		this.company = company;
+	public void setOfficeAddress(String officeAddress) {
+		this.officeAddress = officeAddress;
 	}
 
-	public String getOffice_address() {
-		return office_address;
+	public LocalDate getPostedDate() {
+		return postedDate;
 	}
 
-	public void setOffice_address(String office_address) {
-		this.office_address = office_address;
+	public void setPostedDate(LocalDate postedDate) {
+		this.postedDate = postedDate;
 	}
 
-	public Date getPosted_date() {
-		return posted_date;
+	public boolean isActive() {
+		return isActive;
 	}
 
-	public void setPosted_date(Date posted_date) {
-		this.posted_date = posted_date;
-	}
-
-	public boolean isIs_active() {
-		return is_active;
-	}
-
-	public void setIs_active(boolean is_active) {
-		this.is_active = is_active;
+	public void setActive(boolean isActive) {
+		this.isActive = isActive;
 	}
 
 	@Override
 	public String toString() {
-		return "JobPost [job_post_id=" + job_post_id + ", job_type=" + job_type + ", vacancies=" + vacancies
-				+ ", employer=" + employer + ", salary_stipend=" + salary_stipend + ", company=" + company
-				+ ", office_address=" + office_address + ", posted_date=" + posted_date + ", is_active=" + is_active
-				+ "]";
+		return "JobPost [jobPostId=" + jobPostId + ", jobType=" + jobType + ", skills=" + skills + ", vacancies="
+				+ vacancies + ", employee=" + employee + ", salary=" + salary + ", officeAddress=" + officeAddress
+				+ ", postedDate=" + postedDate + ", isActive=" + isActive + "]";
 	}
+
+	
 
 }

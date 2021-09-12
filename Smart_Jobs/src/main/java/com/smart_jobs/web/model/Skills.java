@@ -1,5 +1,6 @@
 package com.smart_jobs.web.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -16,11 +17,17 @@ public class Skills {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long skill_id;
+	private Long skillId;
 
 	@NotNull
-	private String skill_name;
+	@Column(name = "skill_name")
+	private String skillName;
 
+	@NotNull
+	@ManyToOne
+	@JoinColumn(name = "job_post_id")
+	private JobPost jobPostId;
+	
 	@ManyToOne
 	@JoinColumn(name = "user_email")
 	private Login login;
@@ -29,27 +36,27 @@ public class Skills {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Skills(Long skill_id, String skill_name, Login login) {
+	public Skills(Long skillId, String skillName, Login login) {
 		super();
-		this.skill_id = skill_id;
-		this.skill_name = skill_name;
+		this.skillId = skillId;
+		this.skillName = skillName;
 		this.login = login;
 	}
 
-	public Long getSkill_id() {
-		return skill_id;
+	public Long getSkillId() {
+		return skillId;
 	}
 
-	public void setSkill_id(Long skill_id) {
-		this.skill_id = skill_id;
+	public void setSkillId(Long skillId) {
+		this.skillId = skillId;
 	}
 
-	public String getSkill_name() {
-		return skill_name;
+	public String getSkillName() {
+		return skillName;
 	}
 
-	public void setSkill_name(String skill_name) {
-		this.skill_name = skill_name;
+	public void setSkillName(String skillName) {
+		this.skillName = skillName;
 	}
 
 	public Login getLogin() {
@@ -60,9 +67,18 @@ public class Skills {
 		this.login = login;
 	}
 
-	@Override
-	public String toString() {
-		return "Skills [skill_id=" + skill_id + ", skill_name=" + skill_name + ", login=" + login + "]";
+	public JobPost getJobPostId() {
+		return jobPostId;
 	}
 
+	public void setJobPostId(JobPost jobPostId) {
+		this.jobPostId = jobPostId;
+	}
+
+	@Override
+	public String toString() {
+		return "Skills [skillId=" + skillId + ", skillName=" + skillName + ", login=" + login + "]";
+	}
+
+	
 }
