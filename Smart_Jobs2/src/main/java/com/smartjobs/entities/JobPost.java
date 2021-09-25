@@ -25,8 +25,8 @@ import com.sun.istack.NotNull;
 public class JobPost {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long jobPostId;
+	@GeneratedValue(generator="increment")
+	private int jobPostId;
 
 	@NotNull
 	private String jobType;
@@ -60,7 +60,7 @@ public class JobPost {
 		// TODO Auto-generated constructor stub
 	}
 
-	public JobPost(Long jobPostId, String jobType, Skills skills, int vacancies, Employer employee, double salary,
+	public JobPost(int jobPostId, String jobType, Skills skills, int vacancies, Employer employee, double salary,
 			Company company, String officeAddress, Date postedDate, boolean isActive) {
 		super();
 		this.jobPostId = jobPostId;
@@ -77,11 +77,11 @@ public class JobPost {
 
 
 
-	public Long getJobPostId() {
+	public int getJobPostId() {
 		return jobPostId;
 	}
 
-	public void setJobPostId(Long jobPostId) {
+	public void setJobPostId(int jobPostId) {
 		this.jobPostId = jobPostId;
 	}
 

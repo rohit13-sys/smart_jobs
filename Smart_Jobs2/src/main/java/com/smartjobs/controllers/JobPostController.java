@@ -1,10 +1,13 @@
 package com.smartjobs.controllers;
 
+import java.io.Console;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,63 +32,59 @@ public class JobPostController {
 	private JobPostService jobServiceRepo;
 	
 	@GetMapping
-	public List<JobPost> getAllJobs() throws JobPostNotFound{
+	public List<JobPost> getAllJobs() {
 		return jobServiceRepo.findAllJobs();
 	}
 	
-	@GetMapping("/findjbyid")
-	public List<JobPost> getJobById(@RequestParam("id") int id) throws JobPostNotFound{
-		return jobServiceRepo.findJobById(id);
-	}
-	
-	@GetMapping("/findjbycom")
-	public List<JobPost> getJobByCompany(@RequestParam("cname") String cname) throws JobPostNotFound{
-		return jobServiceRepo.findJobByCompany(cname);
-	}
-	
-	@GetMapping("/findjbyskills")
-	public List<JobPost> getJobBySkills(@RequestParam("skill") String skill) throws JobPostNotFound{
-		return jobServiceRepo.findJobBySkills(skill);
-	}
-	
-	@GetMapping("/findjbysl")
-	public List<JobPost> getJobBySalary(@RequestParam("salary") float salary) throws JobPostNotFound{
-		return jobServiceRepo.findJobBySalary(salary);
-	}
-	
-	@GetMapping("/findjbyslrange")
-	public List<JobPost> getJobBySalaryInRange(@RequestParam("minsalary") float minsalary,@RequestParam("maxsalary") float maxsalary) throws JobPostNotFound{
-		return jobServiceRepo.findJobBySalaryInRange(minsalary,maxsalary);
-	}
-	
-	@GetMapping("/findjbysksl")
-	public List<JobPost> getJobBySkillAndSalary(@RequestParam("skills") String skills,@RequestParam("salary") float salary) throws JobPostNotFound{
-		return jobServiceRepo.findJobBySkillsAndSalary(skills,salary);
-	}
-	
-	@GetMapping("/findjbyskcp")
-	public List<JobPost> getJobBySkillAndCompany(@RequestParam("skills") String skills,@RequestParam("company") String company) throws JobPostNotFound{
-		return jobServiceRepo.findJobBySkillsAndCompany(skills,company);
+	@GetMapping("/findjbyid/{id}")
+	public Object getJobById(@PathVariable("id") int jobPostId){
+		try {
+			return jobServiceRepo.findJobById(jobPostId);
+		} catch (JobPostNotFound e) {
+			// TODO Auto-generated catch block
+			return e.toString();
+		}
 	}
 	
 	//Post new job if new id or update existing job
 	@PutMapping("/addjob")
-	public void addJob(@RequestBody JobPost job) {
+	public String addJob(@RequestBody JobPost job) {
 		 jobServiceRepo.addJob(job);
+		 return "job posted successfully";
 	}
 	
-	@DeleteMapping("/deletebyid")
-	public void deleteJobById(Optional<JobPost> jb,JobPost job,@RequestParam("id") int id) throws JobPostNotFound {
-		 jobServiceRepo.deleteJobById(jb, job, id);
+	//update existing product
+	@PostMapping("/updatejob/{id}")
+	public String updateJobById(@RequestBody JobPost job) {
+		try {
+			return jobServiceRepo.updateJob(job);
+		} catch (JobPostNotFound e) {
+			// TODO Auto-generated catch block
+			return e.toString();
+		}
 	}
 	
-	@DeleteMapping("/deletebyskills")
-	public void deleteJobBySkill(Optional<JobPost> jb,JobPost job,@RequestParam("skills") String skills) throws JobPostNotFound {
-		 jobServiceRepo.deleteJobBySkills(jb, job, skills);
-	}
-	
-	@DeleteMapping("/deletebycompany")
-	public void deleteJobByCname(Optional<JobPost> jb,JobPost job,@RequestParam("company") String company) throws JobPostNotFound {
-		 jobServiceRepo.deleteJobByCompany(jb, job, company);
-	}
+	  @DeleteMapping("/delete/{id}") 
+	  public String deleteJobById(@PathVariable("id") int id){
+	      try {
+			return jobServiceRepo.deleteJob(id);
+		} catch (JobPostNotFound e) {
+			// TODO Auto-generated catch block
+			return e.toString();
+		}
+	  }
+	  
+	  @GetMapping("/findjbysl")
+		public List<JobPost> getJobBySalary(@PathVariable("salary") float salary) throws JobPostNotFound{
+			return jobServiceRepo.findJobBySalary(salary);
+		}
+		
+	  @GetMapping("/findjbyslrange")
+		public List<JobPost> getJobBySalaryInRange(@PathVariable("minsalary") float minsalary,@PathVariable("maxsalary") float maxsalary) throws JobPostNotFound{
+			return jobServiceRepo.findJobBySalaryInRange(minsalary,maxsalary);
+		}
+		
+
 }
+
+

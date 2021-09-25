@@ -15,13 +15,11 @@ import com.smartjobs.exceptions.JobPostNotFound;
  */
 public interface JobPostService {
 
-	public List<JobPost> findAllJobs() throws JobPostNotFound;
+	public List<JobPost> findAllJobs();
 	
-	public List<JobPost> findJobById(int id) throws JobPostNotFound;
+	public Object findJobById(int id) throws JobPostNotFound;
 	
-	public List<JobPost> findJobByCompany(String cname) throws JobPostNotFound;
-	
-	public List<JobPost> findJobBySkills(String skills) throws JobPostNotFound;
+	public String updateJob(JobPost job) throws JobPostNotFound;
 	
 	public List<JobPost> findJobBySalary(float salary) throws JobPostNotFound;
 	
@@ -29,13 +27,10 @@ public interface JobPostService {
 	
 	public List<JobPost> findJobBySkillsAndSalary(String sname,float salary) throws JobPostNotFound;
 
-	public List<JobPost> findJobBySkillsAndCompany(String sname,String cname) throws JobPostNotFound;
-	
 	String addJob(JobPost job);
 	
-	public String deleteJobById(Optional<JobPost> jb,JobPost job,int id) throws JobPostNotFound;
-	
-	public String deleteJobBySkills(Optional<JobPost> jb,JobPost job,String skills) throws JobPostNotFound;
-	
-	public String deleteJobByCompany(Optional<JobPost> jb,JobPost job,String cname) throws JobPostNotFound;
+	public String deleteJob(JobPost job) throws JobPostNotFound;
+	  
+	public String deleteJob(int id) throws JobPostNotFound;
+	 
 }

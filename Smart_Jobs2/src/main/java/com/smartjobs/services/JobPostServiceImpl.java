@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import com.smartjobs.entities.JobPost;
 import com.smartjobs.exceptions.JobPostNotFound;
@@ -23,21 +25,28 @@ public class JobPostServiceImpl implements JobPostService {
 	@Autowired
 	private JobPostRepository jobPostRepo;
 	
-	public List<JobPost> findAllJobs() throws JobPostNotFound{
+	public List<JobPost> findAllJobs(){
 		return jobPostRepo.findAll();
 	}
 	
-	public List<JobPost> findJobById(int id) throws JobPostNotFound{
-		return jobPostRepo.findById(id);
+	public Object findJobById(int id) throws JobPostNotFound{
+		JobPost job = new JobPost();
+		Optional<JobPost> op = jobPostRepo.findById(id);
+		if(op.isPresent()) {
+			return op.get();}
+	   else
+			return "sorry! job is not found";
+		
 	}
 	
 	public List<JobPost> findJobByCompany(String cname) throws JobPostNotFound{
 		return jobPostRepo.findByCompany(cname);
 	}
 	
-	public List<JobPost> findJobBySkills(String skills) throws JobPostNotFound{
-		return jobPostRepo.findBySkills(skills);
-	}
+	/*
+	 * public Optional<JobPost> findJobBySkills(String skills) throws
+	 * JobPostNotFound{ return jobPostRepo.findBySkill(skills); }
+	 */
 	
 	public List<JobPost> findJobBySalary(float salary) throws JobPostNotFound{
 		return jobPostRepo.findBySalary(salary);
@@ -51,46 +60,37 @@ public class JobPostServiceImpl implements JobPostService {
 		return jobPostRepo.findBySkillsAndSalary(sname,salary);
 	}
 
-	public List<JobPost> findJobBySkillsAndCompany(String sname,String cname) throws JobPostNotFound{
-		return jobPostRepo.findBySkillsAndCompany(sname,cname);
-	}
-	
 	public String addJob(JobPost job) {
 	job = jobPostRepo.save(job);
 	return "Job " + job.getJobPostId() + " is posted successfully";
 	}
 	
-	public String deleteJobById(Optional<JobPost> jb,JobPost job,int id) throws JobPostNotFound{
-		jb = jobPostRepo.findByIds(id);
-		if(jb.isPresent()) {
-			 job = jb.get();
-			 jobPostRepo.delete(job);
-			 return "Job for " + job.getJobPostId() + " is deleted successfully";}
-		else {
-			return "Product not found";
-		}
+	public String updateJob(@RequestBody JobPost job) {
+	    Optional<JobPost> op = jobPostRepo.findById(job.getJobPostId());
+	if(op.isPresent()) {
+		job=jobPostRepo.save(job);
+		return "Job "+job.getJobPostId()+" is updated successfully";}
+   else
+		return "sorry! job is not found";
 	}
-	
-	public String deleteJobBySkills(Optional<JobPost> jb,JobPost job,String skills) throws JobPostNotFound{
-		jb = jobPostRepo.findBySkill(skills);
-		if(jb.isPresent()) {
-			 job = jb.get();
-			 jobPostRepo.delete(job);
-			 return "Job for " + job.getSkills() + " is deleted successfully";}
-		else {
-			return "Product not found";
-		}
-			
-	}
-	
-	public String deleteJobByCompany(Optional<JobPost> jb,JobPost job,String cname) throws JobPostNotFound{
-		jb = jobPostRepo.findByComapany(cname);
-		if(jb.isPresent()) {
-			 job = jb.get();
-			 jobPostRepo.delete(job);
-			 return "Job for " + job.getCompany() + " is deleted successfully";}
-		else {
-			return "Product not found";
-		}
-	}
+
+	  public String deleteJob(JobPost job) throws JobPostNotFound
+	  { 
+		  Optional<JobPost> jp = jobPostRepo.findById(job.getJobPostId());
+		  if(jp.isPresent()) { 
+			  jobPostRepo.delete(job);
+			  return "Job " + job.getJobPostId() +" is deleted successfully";
+	  }
+	   else  return "sorry!Product not found"; }
+	  
+	  public String deleteJob(int id) throws JobPostNotFound {
+		  Optional<JobPost> op = jobPostRepo.findById(id);
+			if(op.isPresent()) {
+				JobPost job = op.get();
+				jobPostRepo.delete(job);
+	            return "job "+ job.getJobPostId()+ " deleted successfully";}
+			 else
+					return "sorry! Job is not found";
+				}
+	  
 }
