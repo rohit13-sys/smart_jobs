@@ -3,9 +3,14 @@ package com.smart_jobs.web.controller;
 import java.util.List;
 import java.util.Optional;
 
+import javax.websocket.server.PathParam;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,6 +28,7 @@ import com.smart_jobs.web.model.JobPost;
  * @description RESTful web service for job post
  * 
  */
+@CrossOrigin(origins = "*")
 @RequestMapping("/jobpost")
 @RestController
 public class JobPostController {
@@ -35,9 +41,24 @@ public class JobPostController {
 		return jobServiceRepo.findAllJobs();
 	}
 	
-	@GetMapping("/findjbyid")
-	public JobPost getJobById(@RequestParam("id") int id) throws JobPostNotFound{
-		return jobServiceRepo.findJobById(id);
+	@GetMapping("/findjbyid/{id}")
+	public Object getJobById(@PathVariable("id") long jobPostId){
+		try {
+			return jobServiceRepo.findJobById(jobPostId);
+		} catch (JobPostNotFound e) {
+			// TODO Auto-generated catch block
+			return e.toString();
+		}
+	}
+	
+	@PostMapping("/updateJob")
+	public String updateJobById(@RequestBody JobPost job) {
+		try {
+			return jobServiceRepo.updateJob(job);
+		} catch (JobPostNotFound e) {
+			// TODO Auto-generated catch block
+			return e.toString();
+		}
 	}
 	
 //	@GetMapping("/findjbycom")
@@ -70,16 +91,23 @@ public class JobPostController {
 //		return jobServiceRepo.findJobBySkillsAndCompany(skills,company);
 //	}
 	
+	
 	//Post new job if new id or update existing job
-	@PutMapping("/addjob")
-	public void addJob(@RequestBody JobPost job) {
-		 jobServiceRepo.addJob(job);
+	@PostMapping("/addjob")
+	public String addJob(@RequestBody JobPost job) {
+		System.out.println(job); 
+		return jobServiceRepo.addJob(job);
 	}
 	
-	@DeleteMapping("/deletebyid")
-	public void deleteJobById(Optional<JobPost> jb,JobPost job,@RequestParam("id") int id) throws JobPostNotFound {
-		 jobServiceRepo.deleteJobById(jb, job, id);
-	}
+	 @DeleteMapping("/delete/{id}") 
+	  public String deleteJobById(@PathVariable("id") int id){
+	      try {
+			return jobServiceRepo.deleteJob(id);
+		} catch (JobPostNotFound e) {
+			// TODO Auto-generated catch block
+			return e.toString();
+		}
+	  }
 	
 //	@DeleteMapping("/deletebyskills")s
 //	public void deleteJobBySkill(Optional<JobPost> jb,JobPost job,@RequestParam("skills") String skills) throws JobPostNotFound {

@@ -16,8 +16,10 @@ import com.smart_jobs.web.model.JobPost;
 public interface JobPostService {
 
 	public List<JobPost> findAllJobs() throws JobPostNotFound;
+	public JobPost findJobById(long id) throws JobPostNotFound;
+	public String updateJob(JobPost job) throws JobPostNotFound;
 	
-	public JobPost findJobById(int id) throws JobPostNotFound;
+	//public JobPost findJobById(int id) throws JobPostNotFound;
 	
 //	public List<JobPost> findJobByCompany(String cname) throws JobPostNotFound;
 //	
@@ -33,7 +35,7 @@ public interface JobPostService {
 //	
 	String addJob(JobPost job);
 	
-	public String deleteJobById(Optional<JobPost> jb,JobPost job,int id) throws JobPostNotFound;
+	public String deleteJob(long id) throws JobPostNotFound;
 	
 //	public String deleteJobBySkills(Optional<JobPost> jb,JobPost job,String skills) throws JobPostNotFound;
 //	

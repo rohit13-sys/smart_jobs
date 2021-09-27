@@ -11,6 +11,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.sun.istack.NotNull;
 
 /*
@@ -32,8 +35,12 @@ public class JobPost {
 
 	@NotNull
 	private String jobType;
+	
+	@NotNull
+	private String jobRole;
 
 	@OneToMany(mappedBy = "jobPostId")
+	@JsonManagedReference
 	//@JoinColumn(name = "skillId")
 	private Set<Skills> skills;
 
@@ -59,16 +66,20 @@ public class JobPost {
 
 	@NotNull
 	private boolean isActive = false;
+	
+	@NotNull
+	private String experience;
 
 	public JobPost() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public JobPost(Long jobPostId, String jobType, Set<Skills> skills, int vacancies, Employer employee, double salary,
-			String officeAddress, LocalDate postedDate, boolean isActive) {
+	public JobPost(Long jobPostId, String jobType, String jobRole, Set<Skills> skills, int vacancies, Employer employee,
+			double salary, String officeAddress, LocalDate postedDate, boolean isActive, String experience) {
 		super();
 		this.jobPostId = jobPostId;
 		this.jobType = jobType;
+		this.jobRole = jobRole;
 		this.skills = skills;
 		this.vacancies = vacancies;
 		this.employee = employee;
@@ -76,6 +87,7 @@ public class JobPost {
 		this.officeAddress = officeAddress;
 		this.postedDate = postedDate;
 		this.isActive = isActive;
+		this.experience = experience;
 	}
 
 	public Long getJobPostId() {
@@ -92,6 +104,14 @@ public class JobPost {
 
 	public void setJobType(String jobType) {
 		this.jobType = jobType;
+	}
+
+	public String getJobRole() {
+		return jobRole;
+	}
+
+	public void setJobRole(String jobRole) {
+		this.jobRole = jobRole;
 	}
 
 	public Set<Skills> getSkills() {
@@ -150,11 +170,20 @@ public class JobPost {
 		this.isActive = isActive;
 	}
 
+	public String getExperience() {
+		return experience;
+	}
+
+	public void setExperience(String experience) {
+		this.experience = experience;
+	}
+
 	@Override
 	public String toString() {
-		return "JobPost [jobPostId=" + jobPostId + ", jobType=" + jobType + ", skills=" + skills + ", vacancies="
-				+ vacancies + ", employee=" + employee + ", salary=" + salary + ", officeAddress=" + officeAddress
-				+ ", postedDate=" + postedDate + ", isActive=" + isActive + "]";
+		return "JobPost [jobPostId=" + jobPostId + ", jobType=" + jobType + ", jobRole=" + jobRole + ", skills="
+				+ skills + ", vacancies=" + vacancies + ", employee=" + employee + ", salary=" + salary
+				+ ", officeAddress=" + officeAddress + ", postedDate=" + postedDate + ", isActive=" + isActive
+				+ ", experience=" + experience + "]";
 	}
 
 	

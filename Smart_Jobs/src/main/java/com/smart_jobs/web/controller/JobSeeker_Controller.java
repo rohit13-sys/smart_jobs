@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.smart_jobs.service.jobseeker.JobSeeker_Service;
-import com.smart_jobs.service.login.LoginService;
+import com.smart_jobs.services.LoginService;
 import com.smart_jobs.web.model.JobSeeker_Personal;
 import com.smart_jobs.web.model.Login;
 

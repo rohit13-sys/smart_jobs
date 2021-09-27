@@ -9,6 +9,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.sun.istack.NotNull;
 
 @Entity
@@ -26,6 +27,7 @@ public class Skills {
 	@NotNull
 	@ManyToOne
 	@JoinColumn(name = "job_post_id")
+    @JsonBackReference
 	private JobPost jobPostId;
 	
 	@ManyToOne

@@ -10,5 +10,5 @@ import com.smart_jobs.web.model.Login;
 
 public interface LoginRepo extends JpaRepository<Login,Long > {
 
-	//Optional<Login> findByUnAndPwd(String un, String pwd);
+	Login findByUserIdAndPwd(String un, String pwd);
 }

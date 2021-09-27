@@ -1,6 +1,9 @@
 package com.smart_jobs.web.model;
 
 import java.util.Date;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -15,7 +18,8 @@ import com.sun.istack.NotNull;
 @Entity
 @Table(name = "education_details")
 public class JsEducation_details {
-
+	
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long education_id;

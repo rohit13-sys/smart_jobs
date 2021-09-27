@@ -41,7 +41,7 @@ public class Employer {
 
 	@NotNull
 	@Column(name = "phone_no")
-	private int phoneNo;
+	private Long phoneNo;
 
 	@NotNull
 	@Column(name = "branch_office_id")	
@@ -56,7 +56,7 @@ public class Employer {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Employer(Long employerNo, Login login, String employerName, int phoneNo, Long branchOfficeId,
+	public Employer(Long employerNo, Login login, String employerName, Long phoneNo, Long branchOfficeId,
 			Company company) {
 		super();
 		this.employerNo = employerNo;
@@ -91,11 +91,11 @@ public class Employer {
 		this.employerName = employerName;
 	}
 
-	public int getPhoneNo() {
+	public Long getPhoneNo() {
 		return phoneNo;
 	}
 
-	public void setPhoneNo(int phoneNo) {
+	public void setPhoneNo(Long phoneNo) {
 		this.phoneNo = phoneNo;
 	}
 
@@ -120,7 +120,6 @@ public class Employer {
 		return "Employer [employerNo=" + employerNo + ", login=" + login + ", employerName=" + employerName
 				+ ", phoneNo=" + phoneNo + ", branchOfficeId=" + branchOfficeId + ", company=" + company + "]";
 	}
-
 	
 	
 }

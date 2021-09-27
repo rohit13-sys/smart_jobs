@@ -14,7 +14,7 @@ import com.smart_jobs.web.model.JobPost;
  * @description JobPost Repo.
  * 
  */
-public interface JobPostRepository extends JpaRepository<JobPost, Integer> {
+public interface JobPostRepository extends JpaRepository<JobPost, Long> {
 
 	List<JobPost> findAll();
 	//List<JobPost> findById(int id);

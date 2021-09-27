@@ -1,6 +1,8 @@
 package com.smart_jobs.web.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,6 +21,7 @@ import com.smart_jobs.web.model.Employer;
  * @description Controller of Employer
  * */
 
+@CrossOrigin
 @RestController
 @RequestMapping("/Employee")
 public class EmployerController {
@@ -78,5 +81,10 @@ public class EmployerController {
 			return e.getMessage();
 		}
 		return "Product updated Successfully";
+	}
+	
+	@GetMapping("/getEmployee")
+	public Employer getEmployee(@RequestParam("empId") String empId) {
+		return empService.findEmployerByName(empId);
 	}
 }
