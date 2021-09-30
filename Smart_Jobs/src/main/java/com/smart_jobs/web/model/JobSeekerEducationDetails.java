@@ -1,9 +1,6 @@
 package com.smart_jobs.web.model;
 
 import java.util.Date;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,9 +14,8 @@ import com.sun.istack.NotNull;
 
 @Entity
 @Table(name = "education_details")
-public class JsEducation_details {
-	
-	
+public class JobSeekerEducationDetails {
+
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long education_id;
@@ -44,11 +40,11 @@ public class JsEducation_details {
 
 	private double cgpa;
 
-	public JsEducation_details() {
+	public JobSeekerEducationDetails() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public JsEducation_details(Long education_id, Login login, double hSC_result, double sSC_result,
+	public JobSeekerEducationDetails(Long education_id, Login login, double hSC_result, double sSC_result,
 			String university_name, Date start_date, Date end_date, double percentage, double cgpa) {
 		super();
 		this.education_id = education_id;
@@ -140,6 +136,4 @@ public class JsEducation_details {
 				+ ", SSC_result=" + SSC_result + ", university_name=" + university_name + ", start_date=" + start_date
 				+ ", end_date=" + end_date + ", percentage=" + percentage + ", cgpa=" + cgpa + "]";
 	}
-
-	
-}
+} // End of class

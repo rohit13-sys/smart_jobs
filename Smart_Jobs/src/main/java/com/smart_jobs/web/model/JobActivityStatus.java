@@ -1,13 +1,16 @@
 package com.smart_jobs.web.model;
 
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.sun.istack.NotNull;
@@ -24,21 +27,24 @@ import com.sun.istack.NotNull;
 @Entity
 @Table(name="jobActivityStatus")
 public class JobActivityStatus {
-
-	
-	@ManyToOne
-	@JoinColumn(name = "jobseekerEmail")
-	@NotNull
-	private JobSeeker_Personal jspersonal;
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long jobStatusId;
+
+	@OneToOne
+	@JoinColumn(name = "JobSeeker_personal")
+	@NotNull
+	private JobSeekerPersonal jspersonal;
 	
-	@ManyToOne
-	@JoinColumn(name = "jobPostId")
+	@OneToOne
+	@JoinColumn(name = "jobpost_jobPostId")
 	@NotNull
 	private JobPost jobPost;
+	
+//	private List<JobPost> jobPosts;
+	// Add List of JobPost so that return of calling applied job method
+	// will be an array of applied jobs by jobseeker
 	
 	private Date applyDate;
 	
@@ -50,7 +56,7 @@ public class JobActivityStatus {
 		// TODO Auto-generated constructor stub
 	}
 
-	public JobActivityStatus(JobSeeker_Personal jspersonal, Long jobStatusId, JobPost jobPost, Date applyDate,
+	public JobActivityStatus(JobSeekerPersonal jspersonal, Long jobStatusId, JobPost jobPost, Date applyDate,
 			Date rejectedDate, String jobStatus) {
 		super();
 		this.jspersonal = jspersonal;
@@ -61,11 +67,11 @@ public class JobActivityStatus {
 		this.jobStatus = jobStatus;
 	}
 
-	public JobSeeker_Personal getJspersonal() {
+	public JobSeekerPersonal getJspersonal() {
 		return jspersonal;
 	}
 
-	public void setJspersonal(JobSeeker_Personal jspersonal) {
+	public void setJspersonal(JobSeekerPersonal jspersonal) {
 		this.jspersonal = jspersonal;
 	}
 

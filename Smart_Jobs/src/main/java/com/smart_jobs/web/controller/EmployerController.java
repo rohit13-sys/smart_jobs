@@ -1,6 +1,8 @@
 package com.smart_jobs.web.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -48,16 +50,16 @@ public class EmployerController {
 	private EmployerService empService;
 	
 	@PostMapping("/registerEmployee")
-	public String addEmployee(@RequestBody Employer emp) {
+	public ResponseEntity<String> addEmployee(@RequestBody Employer emp) {
 		try {
 			System.out.println(emp.getLogin().getUserId());
 			empService.add(emp);
 		} catch (EmployerAlreadyExists e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			return e.getMessage();
+			return new ResponseEntity<String>(HttpStatus.CONFLICT);
 		}
-		return "Product Added Successfully";
+		return new ResponseEntity<String>(HttpStatus.CREATED);
 	}
 	
 	@PostMapping("/deleteEmployee")
@@ -74,16 +76,16 @@ public class EmployerController {
 	@PostMapping("/updateEmployee")
 	public String updateEmployee(@RequestBody Employer employer) {
 		try {
-				empService.edit(employer);
+				empService.edit(employer);	
 		} catch (EmployerNotFound e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return e.getMessage();
 		}
-		return "Product updated Successfully";
+		return "Employer updated Successfully";
 	}
 	
-	@GetMapping("/getEmployee")
+	@PostMapping("/getEmployee")
 	public Employer getEmployee(@RequestParam("empId") String empId) {
 		return empService.findEmployerByName(empId);
 	}

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.smart_jobs.services.LoginService;
@@ -22,29 +23,33 @@ public class LoginController {
 	@Autowired
 	LoginService loginService;
 //	
-	@PostMapping("/login/seeker")
-	public ResponseEntity<Object> login(@RequestBody Login login) {
-		if(login!=null) {
-			Login lData=this.loginService.loginCheck(login.getUserId(), login.getPwd());
-			if(lData!=null){
-				String role=lData.getRole();
-				return new ResponseEntity<Object>(HttpStatus.ACCEPTED); 
-			}
-			else {
-				return new ResponseEntity<Object>(HttpStatus.UNAUTHORIZED);
-			}
-				
-		}	
-		else {
-			return new ResponseEntity<Object>(HttpStatus.INTERNAL_SERVER_ERROR);
-		}
-	}
+//	@PostMapping("/login/seeker")
+//	public ResponseEntity<Object> login(@RequestBody Login login) {
+//		if(login!=null) {
+//			Login lData=this.loginService.loginCheck(login.getUserId(), login.getPwd());
+//			if(lData!=null){
+//				String role=lData.getRole();
+//				return new ResponseEntity<Object>(HttpStatus.ACCEPTED); 
+//			}
+//			else {
+//				return new ResponseEntity<Object>(HttpStatus.UNAUTHORIZED);
+//			}
+//				
+//		}	
+//		else {
+//			return new ResponseEntity<Object>(HttpStatus.INTERNAL_SERVER_ERROR);
+//		}
+//	}
 	
-	@PostMapping("/login/employee")
+	@PostMapping("/login")
 	public ResponseEntity<Object> login1(@RequestBody Login login) {
 		if(login!=null) {
 			System.out.println("Login : " + login);
-			Login lData=this.loginService.loginCheck(login.getUserId(), login.getPwd());
+			Login lData = loginService.getLogin(login.getUserId());
+			if(lData == null) {
+				return new ResponseEntity<Object>(HttpStatus.CONFLICT);
+			}
+			lData=this.loginService.loginCheck1(login.getUserId(), login.getPwd() ,login.getRole());
 			if(lData!=null){
 				String role=lData.getRole();
 				System.out.println("Yes");
@@ -62,8 +67,8 @@ public class LoginController {
 	}
 	
 	@GetMapping("/getLogin")
-	public List<Login> getLogin(){
-		List<Login> login = loginService.getLogin();
+	public Login getLogin(@RequestParam("emailId") String email){
+		Login login = loginService.getLogin(email);
 		return login;
 	}
 }

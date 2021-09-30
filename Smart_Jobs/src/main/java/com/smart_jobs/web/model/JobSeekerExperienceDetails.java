@@ -12,7 +12,7 @@ import com.sun.istack.NotNull;
 
 @Entity
 @Table(name="exp_details")
-public class JsExp_Details {
+public class JobSeekerExperienceDetails {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -33,11 +33,11 @@ public class JsExp_Details {
 	
 	private String description;
 	
-	public JsExp_Details() {
+	public JobSeekerExperienceDetails() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public JsExp_Details(Long exp_id, com.smart_jobs.web.model.Login login, String company_name,
+	public JobSeekerExperienceDetails(Long exp_id, com.smart_jobs.web.model.Login login, String company_name,
 			boolean is_current_Active, double year_of_exp, String job_title, String description) {
 		super();
 		this.exp_id = exp_id;
@@ -73,7 +73,7 @@ public class JsExp_Details {
 		this.company_name = company_name;
 	}
 
-	public boolean isIs_current_Active() {
+	public boolean getIs_current_Active() {
 		return is_current_Active;
 	}
 
@@ -111,6 +111,4 @@ public class JsExp_Details {
 				+ ", is_current_Active=" + is_current_Active + ", year_of_exp=" + year_of_exp + ", job_title="
 				+ job_title + ", description=" + description + "]";
 	}
-
-	
-}
+} // End of class

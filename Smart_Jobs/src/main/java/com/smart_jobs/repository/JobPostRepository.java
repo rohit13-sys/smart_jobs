@@ -15,7 +15,8 @@ import com.smart_jobs.web.model.JobPost;
  * 
  */
 public interface JobPostRepository extends JpaRepository<JobPost, Long> {
-
+	
+	List<JobPost> findByJobPostId(Long i);
 	List<JobPost> findAll();
 	//List<JobPost> findById(int id);
 	//List<JobPost> findByCompany(String comName);

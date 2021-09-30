@@ -1,27 +1,33 @@
 package com.smart_jobs.web.model;
 
+import java.math.BigInteger;
 import java.util.Arrays;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.CascadeType;
-
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.sun.istack.NotNull;
 
 @Entity
 @Table(name = "JobSeeker_personal")
-public class JobSeeker_Personal {
+public class JobSeekerPersonal {
 
 	@Id
-	private Long sr_no;
+	@GeneratedValue(strategy = GenerationType.AUTO,generator = "increment")
+	private Long srNo;
 
-	@ManyToOne
-	@JoinColumn(name="jobSeeker_email")
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name="JobSeeker_email")
 	@NotNull
 	private Login login;
 	
@@ -29,27 +35,26 @@ public class JobSeeker_Personal {
 	private String seeker_name;
 
 	@NotNull
-	private int ph_no;
+	private BigInteger ph_no;
 	
 	private byte[] photo;
 	
 	private byte[] resume;
 	
-	@ManyToOne
-	@JoinColumn(name="skill_id")
+	@JsonManagedReference
+	@OneToMany(mappedBy = "sr_no")
+//	@JoinColumn(name="skill_id")
 	@NotNull
-	private Skills skills;
+	private Set<JsSkills> skills;
 
-
-	public JobSeeker_Personal() {
-		// TODO Auto-generated constructor stub
+	public JobSeekerPersonal() {
+		super();
 	}
 
-
-	public JobSeeker_Personal(Long sr_no, Login login, String seeker_name, int ph_no, byte[] photo, byte[] resume,
-			Skills skills) {
+	public JobSeekerPersonal(Long sr_no, Login login, String seeker_name, BigInteger ph_no, byte[] photo, byte[] resume,
+			Set<JsSkills> skills) {
 		super();
-		this.sr_no = sr_no;
+		this.srNo = sr_no;
 		this.login = login;
 		this.seeker_name = seeker_name;
 		this.ph_no = ph_no;
@@ -58,84 +63,70 @@ public class JobSeeker_Personal {
 		this.skills = skills;
 	}
 
-
 	public Long getSr_no() {
-		return sr_no;
+		return srNo;
 	}
-
 
 	public void setSr_no(Long sr_no) {
-		this.sr_no = sr_no;
+		this.srNo = sr_no;
 	}
-
 
 	public Login getLogin() {
 		return login;
 	}
 
-
 	public void setLogin(Login login) {
 		this.login = login;
 	}
-
 
 	public String getSeeker_name() {
 		return seeker_name;
 	}
 
-
 	public void setSeeker_name(String seeker_name) {
 		this.seeker_name = seeker_name;
 	}
 
-
-	public int getPh_no() {
+	public BigInteger getPh_no() {
 		return ph_no;
 	}
 
-
-	public void setPh_no(int ph_no) {
+	public void setPh_no(BigInteger ph_no) {
 		this.ph_no = ph_no;
 	}
-
 
 	public byte[] getPhoto() {
 		return photo;
 	}
 
-
 	public void setPhoto(byte[] photo) {
 		this.photo = photo;
 	}
-
 
 	public byte[] getResume() {
 		return resume;
 	}
 
-
 	public void setResume(byte[] resume) {
 		this.resume = resume;
 	}
 
-
-	public Skills getSkills() {
+	public Set<JsSkills> getSkills() {
 		return skills;
 	}
 
-
-	public void setSkills(Skills skills) {
+	public void setSkills(Set<JsSkills> skills) {
 		this.skills = skills;
 	}
 
-
 	@Override
 	public String toString() {
-		return "JobSeeker_Personal [sr_no=" + sr_no + ", login=" + login + ", seeker_name=" + seeker_name + ", ph_no="
+		return "JobSeekerPersonal [sr_no=" + srNo + ", login=" + login + ", seeker_name=" + seeker_name + ", ph_no="
 				+ ph_no + ", photo=" + Arrays.toString(photo) + ", resume=" + Arrays.toString(resume) + ", skills="
 				+ skills + "]";
 	}
-
-		
 	
-}
+	
+
+	
+} // End of class

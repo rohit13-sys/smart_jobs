@@ -52,7 +52,8 @@ public class EmployerServiceImpl implements EmployerService {
 			throw new EmployerNotFound("Sorry!! Employer is not Found...");
 		else {
 			employer.setEmployerNo(empList.getEmployerNo());
-			System.out.println(employer.toString());
+			 
+			System.out.println(employer);
 			employerRepo.save(employer);
 		}
 	}

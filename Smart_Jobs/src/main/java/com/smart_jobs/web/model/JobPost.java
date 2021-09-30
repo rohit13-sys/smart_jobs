@@ -30,7 +30,7 @@ import com.sun.istack.NotNull;
 public class JobPost {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO,generator = "increment")
 	private Long jobPostId;
 
 	@NotNull
@@ -39,7 +39,7 @@ public class JobPost {
 	@NotNull
 	private String jobRole;
 
-	@OneToMany(mappedBy = "jobPostId")
+	@OneToMany(mappedBy = "jobPostId"	)
 	@JsonManagedReference
 	//@JoinColumn(name = "skillId")
 	private Set<Skills> skills;

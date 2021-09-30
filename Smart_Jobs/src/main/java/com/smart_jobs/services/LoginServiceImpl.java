@@ -15,18 +15,28 @@ public class LoginServiceImpl implements LoginService{
 	@Autowired
 	LoginRepo loginRepo;
 
+//	@Override
+//	public Login loginCheck(String un, String pwd) {
+//		Login login=loginRepo.findByUserIdAndPwd(un, pwd);
+//		System.out.println(login);
+//		return login;
+//	}
+	
 	@Override
-	public Login loginCheck(String un, String pwd) {
-		Login login=loginRepo.findByUserIdAndPwd(un, pwd);
+	public Login loginCheck1(String un, String pwd,String role) {
+		Login login=loginRepo.findByUserIdAndPwdAndRole(un, pwd,role);
 		System.out.println(login);
 		return login;
 	}
 
 	@Override
-	public List<Login> getLogin() {
+	public Login getLogin(String email) {
 		// TODO Auto-generated method stub
-		List<Login> login = loginRepo.findAll();
-		return login;
+		Optional<Login> login = loginRepo.findById(email);
+		if(login.isPresent()) {
+			return login.get();
+		}
+		return null;
 	}
 	
 	
