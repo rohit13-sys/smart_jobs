@@ -14,11 +14,9 @@ import com.smart_jobs.web.model.JobSeekerExperienceDetails;
 public interface JobSeekerExperienceDetailsService {
 	
 	
-//	public void saveExperienceDetails(JobSeekerExperienceDetails experienceDetails
-//			, Principal principal);
-//	public void updateExperienceDetails(JobSeekerExperienceDetails experienceDetailsRequest, 
-//			Principal principal);
-//	public void deleteExperienceDetails(Long exp_id, Principal principal);
-//	public JobSeekerExperienceDetails getExperienceDetails(Principal principal);
+	public void saveExperienceDetails(JobSeekerExperienceDetails experienceDetails);
+	public void updateExperienceDetails(JobSeekerExperienceDetails experienceDetailsRequest);
+	public void deleteExperienceDetails(Long exp_id);
+	public JobSeekerExperienceDetails getExperienceDetails();
 
 }

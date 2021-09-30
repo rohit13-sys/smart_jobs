@@ -24,5 +24,5 @@ public interface JobSeekerPersonalService {
 
 	public void deleteJobSeeker(Long sr_no);
 
-//	public JobSeekerPersonal getJobSeeker();
+	public JobSeekerPersonal getJobSeeker();
 }

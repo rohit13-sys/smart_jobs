@@ -20,10 +20,11 @@ import com.sun.istack.NotNull;
 @Table(name = "Login")
 public class Login {
 
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private long lid;
+//	@Id
+//	@GeneratedValue(strategy=GenerationType.IDENTITY)
+//	private long lid;
 	
+	@Id
 	@Column(name="user_email",length = 50)
 	private String userId;
 	

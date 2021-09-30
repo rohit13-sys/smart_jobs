@@ -33,7 +33,7 @@ public class JobActivityStatus {
 	@ManyToOne
 	@JoinColumn(name = "jobseekerEmail")
 	@NotNull
-	private JobSeeker_Personal jspersonal;
+	private JobSeekerPersonal jspersonal;
 	
 	@ManyToOne
 	@JoinColumn(name = "jobPostId")
@@ -54,7 +54,7 @@ public class JobActivityStatus {
 		// TODO Auto-generated constructor stub
 	}
 
-	public JobActivityStatus(JobSeeker_Personal jspersonal, Long jobStatusId, JobPost jobPost, Date applyDate,
+	public JobActivityStatus(JobSeekerPersonal jspersonal, Long jobStatusId, JobPost jobPost, Date applyDate,
 			Date rejectedDate, String jobStatus) {
 		super();
 		this.jspersonal = jspersonal;
@@ -65,11 +65,11 @@ public class JobActivityStatus {
 		this.jobStatus = jobStatus;
 	}
 
-	public JobSeeker_Personal getJspersonal() {
+	public JobSeekerPersonal getJspersonal() {
 		return jspersonal;
 	}
 
-	public void setJspersonal(JobSeeker_Personal jspersonal) {
+	public void setJspersonal(JobSeekerPersonal jspersonal) {
 		this.jspersonal = jspersonal;
 	}
 

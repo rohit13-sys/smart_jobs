@@ -98,14 +98,14 @@ public class JobActivityStatusServiceImpl implements JobActivityStatusService {
 	@Override
 	public void applyJobs(JobActivityStatus appliedRequest) {
 		
-		JobActivityStatus appliedJobs = new JobActivityStatus();
+//		JobActivityStatus appliedJobs = new JobActivityStatus();
+//		
+//		appliedJobs.setJspersonal(appliedRequest.getJspersonal());
+//		appliedJobs.setJobPost(appliedRequest.getJobPost());
+//		appliedJobs.setApplyDate(appliedRequest.getApplyDate());
+//		appliedJobs.setRejectedDate(appliedRequest.getRejectedDate());
+//		appliedJobs.setJobStatus(appliedRequest.getJobStatus());
 		
-		appliedJobs.setJspersonal(appliedRequest.getJspersonal());
-		appliedJobs.setJobPost(appliedRequest.getJobPost());
-		appliedJobs.setApplyDate(appliedRequest.getApplyDate());
-		appliedJobs.setRejectedDate(appliedRequest.getRejectedDate());
-		appliedJobs.setJobStatus(appliedRequest.getJobStatus());
-		
-		activityRepo.save(appliedJobs);
+		activityRepo.save(appliedRequest);
 	}
 }

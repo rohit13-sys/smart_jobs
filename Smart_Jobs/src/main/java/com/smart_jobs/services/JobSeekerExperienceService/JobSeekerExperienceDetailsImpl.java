@@ -1,9 +1,9 @@
 package com.smart_jobs.services.JobSeekerExperienceService;
 
-import java.security.Principal;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.smart_jobs.repository.JobSeekerExperienceDetailsRepo;
 import com.smart_jobs.repository.LoginRepo;
@@ -12,7 +12,7 @@ import com.smart_jobs.web.model.Login;
 
 /*
  * @author bhargav.parmar@stltech.in
- * @version 1.0
+ * @version 2.0
  * @creation_date 09-Sept-2021
  * @copyright Sterlite Technologies Ltd.
  */
@@ -45,7 +45,7 @@ import com.smart_jobs.web.model.Login;
  *	How do I differentiate between users that are doing requests?
  *		You don't have to, that's what the Servlet container does for you.
  */
-
+@Service
 public class JobSeekerExperienceDetailsImpl implements JobSeekerExperienceDetailsService{
 
 	@Autowired
@@ -54,65 +54,55 @@ public class JobSeekerExperienceDetailsImpl implements JobSeekerExperienceDetail
 	@Autowired
 	private LoginRepo loginRepo;
 	
-//	@Override
-//	public void saveExperienceDetails(JobSeekerExperienceDetails jsExperience, 
-//										Principal principal) {
-//		String email = principal.getName();
-//		System.out.println(email);
-//		
+	@Override
+	public void saveExperienceDetails(JobSeekerExperienceDetails jsExperience) {
+		
 //		Optional<Login> login = loginRepo.findByUserIdAndPwd(jsExperience.getLogin().getUserId(), jsExperience.getLogin().getPwd());
-//		
-//		JobSeekerExperienceDetails jsExperienceDetails = 
-//				new JobSeekerExperienceDetails();
-//		jsExperienceDetails.setCompany_name(jsExperience.getCompany_name());
-//		jsExperienceDetails.setIs_current_Active(jsExperience.getIs_current_Active());
-//		jsExperienceDetails.setYear_of_exp(jsExperience.getYear_of_exp());
-//		jsExperienceDetails.setJob_title(jsExperience.getJob_title());
-//		jsExperienceDetails.setDescription(jsExperience.getDescription());
-//		jsExperienceDetails.setLogin(jsExperience.getLogin());
-//		experienceDetailsRepo.save(jsExperienceDetails);	
-//	}
+		
+		// Here we have add ID of login interms of finding login 
+		// This is due to no use of spring security
+		Optional<Login> login = loginRepo.findById((long) 1);
+		
+		JobSeekerExperienceDetails jsExperienceDetails = 
+				new JobSeekerExperienceDetails();
+		jsExperienceDetails.setCompany_name(jsExperience.getCompany_name());
+		jsExperienceDetails.setIs_current_Active(jsExperience.getIs_current_Active());
+		jsExperienceDetails.setYear_of_exp(jsExperience.getYear_of_exp());
+		jsExperienceDetails.setJob_title(jsExperience.getJob_title());
+		jsExperienceDetails.setDescription(jsExperience.getDescription());
+		jsExperienceDetails.setLogin(login.get());
+		experienceDetailsRepo.save(jsExperienceDetails);	
+	}
 
-//	@Override
-//	public JobSeekerExperienceDetails getExperienceDetails(Principal principal) {
-//		JobSeekerExperienceDetailsResponse experienceDetailsResponse =
-//				new JobSeekerExperienceDetailsResponse();
-//		String email =  principal.getName();
-//		System.out.println(email);
-//		
-//		Login login = loginRepo.findByEmail(email);
-//		
-//		// Below method needs change use Login insted of user
+	@Override
+	public JobSeekerExperienceDetails getExperienceDetails() {
+		JobSeekerExperienceDetails experienceDetailsResponse =
+				new JobSeekerExperienceDetails();
+		
+		// Below method needs change use Login insted of user
 //		JobSeekerExperienceDetails experienceDetails 
 //			= experienceDetailsRepo.findByLogin(login);
-//		
-//		experienceDetailsResponse.setCompany_name(experienceDetails.getCompany_name());
-//		experienceDetailsResponse.setIs_current_Active(experienceDetails.getIs_current_Active());
-//		experienceDetailsResponse.setYear_of_exp(experienceDetails.getYear_of_exp());
-//		experienceDetailsResponse.setJob_title(experienceDetails.getJob_title());
-//		experienceDetailsResponse.setDescription(experienceDetails.getDescription());
-//		return experienceDetailsResponse;
-//	}
+		
+		// Getting Details using foreign key "Login"
+		// Manually insert ID of jobseeker personal 
+		Optional<JobSeekerExperienceDetails> experienceDetails 
+					= experienceDetailsRepo.findById((long) 3001);
+		
+		experienceDetailsResponse.setCompany_name(experienceDetails.get().getCompany_name());
+		experienceDetailsResponse.setIs_current_Active(experienceDetails.get().getIs_current_Active());
+		experienceDetailsResponse.setYear_of_exp(experienceDetails.get().getYear_of_exp());
+		experienceDetailsResponse.setJob_title(experienceDetails.get().getJob_title());
+		experienceDetailsResponse.setDescription(experienceDetails.get().getDescription());
+		return experienceDetailsResponse;
+	}
 	
-//	@Override
-//	public void updateExperienceDetails(JobSeekerExperienceDetails jsExperience,
-//			Principal principal) {
-//		saveExperienceDetails(jsExperience, principal);
-//	}
+	@Override
+	public void updateExperienceDetails(JobSeekerExperienceDetails jsExperience) {
+		saveExperienceDetails(jsExperience);
+	}
 	
-//	@Override
-//	public void deleteExperienceDetails(Long exp_id, Principal principal) {
-//		
-//		String email =  principal.getName();
-//		System.out.println(email);
-//		
-//		Login login = loginRepo.findByUserIdAndPwd();
-//		
-//		JobSeekerExperienceDetails experienceDetails 
-//			= experienceDetailsRepo.findByLogin(login);
-//		
-//		// There will be changes after testing.
-//				
-//		experienceDetailsRepo.deleteById(exp_id);
-//	}
+	@Override
+	public void deleteExperienceDetails(Long exp_id) {	
+		experienceDetailsRepo.deleteById(exp_id);
+	}
 }
