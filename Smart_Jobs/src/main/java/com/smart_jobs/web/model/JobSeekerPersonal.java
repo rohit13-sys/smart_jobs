@@ -32,10 +32,10 @@ public class JobSeekerPersonal {
 	private Login login;
 	
 	@NotNull
-	private String seeker_name;
+	private String seekerName;
 
 	@NotNull
-	private BigInteger ph_no;
+	private BigInteger seekerMobile;	
 	
 	private byte[] photo;
 	
@@ -51,24 +51,24 @@ public class JobSeekerPersonal {
 		super();
 	}
 
-	public JobSeekerPersonal(Long sr_no, Login login, String seeker_name, BigInteger ph_no, byte[] photo, byte[] resume,
-			Set<JsSkills> skills) {
+	public JobSeekerPersonal(Long srNo, Login login, String seekerName, BigInteger seekerMobile, byte[] photo,
+			byte[] resume, Set<JsSkills> skills) {
 		super();
-		this.srNo = sr_no;
+		this.srNo = srNo;
 		this.login = login;
-		this.seeker_name = seeker_name;
-		this.ph_no = ph_no;
+		this.seekerName = seekerName;
+		this.seekerMobile = seekerMobile;
 		this.photo = photo;
 		this.resume = resume;
 		this.skills = skills;
 	}
 
-	public Long getSr_no() {
+	public Long getSrNo() {
 		return srNo;
 	}
 
-	public void setSr_no(Long sr_no) {
-		this.srNo = sr_no;
+	public void setSrNo(Long srNo) {
+		this.srNo = srNo;
 	}
 
 	public Login getLogin() {
@@ -79,20 +79,20 @@ public class JobSeekerPersonal {
 		this.login = login;
 	}
 
-	public String getSeeker_name() {
-		return seeker_name;
+	public String getSeekerName() {
+		return seekerName;
 	}
 
-	public void setSeeker_name(String seeker_name) {
-		this.seeker_name = seeker_name;
+	public void setSeekerName(String seekerName) {
+		this.seekerName = seekerName;
 	}
 
-	public BigInteger getPh_no() {
-		return ph_no;
+	public BigInteger getSeekerMobile() {
+		return seekerMobile;
 	}
 
-	public void setPh_no(BigInteger ph_no) {
-		this.ph_no = ph_no;
+	public void setSeekerMobile(BigInteger seekerMobile) {
+		this.seekerMobile = seekerMobile;
 	}
 
 	public byte[] getPhoto() {
@@ -121,11 +121,11 @@ public class JobSeekerPersonal {
 
 	@Override
 	public String toString() {
-		return "JobSeekerPersonal [sr_no=" + srNo + ", login=" + login + ", seeker_name=" + seeker_name + ", ph_no="
-				+ ph_no + ", photo=" + Arrays.toString(photo) + ", resume=" + Arrays.toString(resume) + ", skills="
-				+ skills + "]";
+		return "JobSeekerPersonal [srNo=" + srNo + ", login=" + login + ", seekerName=" + seekerName + ", seekerMobile="
+				+ seekerMobile + ", photo=" + Arrays.toString(photo) + ", resume=" + Arrays.toString(resume)
+				+ ", skills=" + skills + "]";
 	}
-	
+
 	
 
 	

@@ -16,6 +16,7 @@ import com.smart_jobs.repository.JobPostRepository;
 import com.smart_jobs.repository.JobSeekerPersonalRepo;
 import com.smart_jobs.web.model.JobActivityStatus;
 import com.smart_jobs.web.model.JobPost;
+import com.smart_jobs.web.model.JobSeekerPersonal;
 
 /*
  * @author Mehul Thakor, bhargav.parmar@stltech.in
@@ -110,10 +111,14 @@ public class JobActivityStatusServiceImpl implements JobActivityStatusService {
 //		appliedJobs.setApplyDate(appliedRequest.getApplyDate());
 //		appliedJobs.setRejectedDate(appliedRequest.getRejectedDate());
 //		appliedJobs.setJobStatus(appliedRequest.getJobStatus());
-		JobActivityStatus jas = activityRepo.findByJobPost_JobPostIdAndJspersonal_SrNo(appliedRequest.getJobPost().getJobPostId(), appliedRequest.getJspersonal().getSr_no());
-		if(jas != null) {
+		JobSeekerPersonal js = jobskRepo.findByLogin_UserId(appliedRequest.getJspersonal().getLogin().getUserId()).get();
+		JobActivityStatus jas = activityRepo.findByJobPost_JobPostIdAndJspersonal_SrNo(appliedRequest.getJobPost().getJobPostId(), js.getSrNo());
+		System.out.println("postId" + appliedRequest.getJobPost());
+		System.out.println("seekerId" + appliedRequest.getJspersonal());
+		System.out.println("jas"+ jas);
+		if(jas == null) {
 			System.out.println(appliedRequest);
-			appliedRequest.setJspersonal(jobskRepo.findByLogin_UserId(appliedRequest.getJspersonal().getLogin().getUserId()).get());
+			appliedRequest.setJspersonal(js);
 			appliedRequest.setJobPost(jobPostRepo.getById(appliedRequest.getJobPost().getJobPostId()));
 			activityRepo.save(appliedRequest);
 		}else {

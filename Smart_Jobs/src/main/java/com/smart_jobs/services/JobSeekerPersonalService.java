@@ -1,6 +1,7 @@
 package com.smart_jobs.services;
 
 import java.security.Principal;
+import java.util.List;
 
 import org.springframework.stereotype.Service;
 
@@ -25,4 +26,6 @@ public interface JobSeekerPersonalService {
 	public void deleteJobSeeker(Long sr_no);
 
 	public JobSeekerPersonal getJobSeeker();
+
+	List<JobSeekerPersonal> findJsByJpId(Long JbId);
 }

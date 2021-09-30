@@ -17,12 +17,15 @@ import com.smart_jobs.web.model.JobActivityStatus;
  * 				this will return the column of Job Post Id.
  * 
  */
+import com.smart_jobs.web.model.JobSeekerPersonal;
 public interface JobActivityRepository extends JpaRepository<JobActivityStatus, Integer> {
 
 	List<JobActivityStatus> findById(int id);
 	List<JobActivityStatus> findByJobPost(Long i);
 	List<JobActivityStatus> findByJobStatus(String status);
 	JobActivityStatus findByJobPost_JobPostIdAndJspersonal_SrNo(Long jobPostId,Long jobSeekerId);
+	
+	List<JobActivityStatus> findByJobPost_JobPostId(Long jobPostId);
 	/*
 	 * Finding all the applied jobs using Job seeker email
 	 * 

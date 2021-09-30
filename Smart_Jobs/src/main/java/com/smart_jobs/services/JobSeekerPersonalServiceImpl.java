@@ -1,5 +1,7 @@
 package com.smart_jobs.services;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -8,9 +10,11 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.smart_jobs.repository.JobActivityRepository;
 import com.smart_jobs.repository.JobSeekerPersonalRepo;
 import com.smart_jobs.repository.JsSkillsRepository;
 import com.smart_jobs.repository.LoginRepo;
+import com.smart_jobs.web.model.JobActivityStatus;
 import com.smart_jobs.web.model.JobSeekerPersonal;
 import com.smart_jobs.web.model.JsSkills;
 
@@ -33,6 +37,9 @@ public class JobSeekerPersonalServiceImpl implements JobSeekerPersonalService {
 	
 	@Autowired
 	private JsSkillsRepository jsSkillsRepo;
+	
+	@Autowired
+	private JobActivityRepository jsActRepo;
 
 	@Override
 	public void saveJobSeeker(JobSeekerPersonal jsPersonal) {
@@ -82,8 +89,8 @@ public class JobSeekerPersonalServiceImpl implements JobSeekerPersonalService {
 		Optional<JobSeekerPersonal> personalDetails = jobSeekerRepo.findById((long) 3001);
 
 		JobSeekerPersonal personalResponse = new JobSeekerPersonal();
-		personalResponse.setSeeker_name(personalDetails.get().getSeeker_name());
-		personalResponse.setPh_no(personalDetails.get().getPh_no());
+		personalResponse.setSeekerName(personalDetails.get().getSeekerName());
+		personalResponse.setSeekerMobile(personalDetails.get().getSeekerMobile());
 		personalResponse.setPhoto(personalDetails.get().getPhoto());
 		personalResponse.setResume(personalDetails.get().getResume());
 		return personalResponse;
@@ -100,4 +107,16 @@ public class JobSeekerPersonalServiceImpl implements JobSeekerPersonalService {
 		System.out.println(jobSeekerRepo.findById(sr_no));
 		jobSeekerRepo.deleteById(sr_no);
 	}
+	
+	@Override
+	public List<JobSeekerPersonal> findJsByJpId(Long JbId) {
+		List<JobActivityStatus> jobas = jsActRepo.findByJobPost_JobPostId(JbId);
+		System.out.println(jobas);
+		List<JobSeekerPersonal> apJobSeekers = new ArrayList<>(); 
+		for(JobActivityStatus job: jobas) {
+			apJobSeekers.add(job.getJspersonal());
+		}
+		return apJobSeekers;
+	}
+	
 }

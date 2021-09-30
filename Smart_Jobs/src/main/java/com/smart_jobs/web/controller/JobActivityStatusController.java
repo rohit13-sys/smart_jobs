@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,9 +17,13 @@ import com.smart_jobs.exceptions.AlreadyApplied;
 import com.smart_jobs.exceptions.JobPostNotFound;
 import com.smart_jobs.repository.JobActivityRepository;
 import com.smart_jobs.services.JobActivityStatusService;
+import com.smart_jobs.services.JobPostService;
+import com.smart_jobs.services.JobSeekerPersonalService;
 import com.smart_jobs.web.model.JobActivityStatus;
 import com.smart_jobs.web.model.JobPost;
+import com.smart_jobs.web.model.JobSeekerPersonal;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/api/v1")
 public class JobActivityStatusController {
@@ -33,6 +38,9 @@ public class JobActivityStatusController {
 	
 	@Autowired
 	private JobActivityRepository activityRepo;
+	
+	@Autowired
+	private JobSeekerPersonalService jsService;
 
 	@PostMapping("/applyJob")
 	public ResponseEntity<String> applyJob(@RequestBody JobActivityStatus applyingJobRequest) {
@@ -57,4 +65,8 @@ public class JobActivityStatusController {
 		return activityRepo.findByJobPost_JobPostIdAndJspersonal_SrNo(jbId, jsId);
 	}
 
+	@PostMapping("/findJobSeeker")
+	public List<JobSeekerPersonal> findjobSeeker(@RequestParam("jbid") Long jbId) {
+		return jsService.findJsByJpId(jbId);
+	}
 }
