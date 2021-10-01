@@ -36,6 +36,7 @@ public interface JobPostService {
 	String addJob(JobPost job);
 	
 	public String deleteJob(long id) throws JobPostNotFound;
+	List<JobPost> findJobPostByEmail(String email) throws JobPostNotFound;
 	
 //	public String deleteJobBySkills(Optional<JobPost> jb,JobPost job,String skills) throws JobPostNotFound;
 //	

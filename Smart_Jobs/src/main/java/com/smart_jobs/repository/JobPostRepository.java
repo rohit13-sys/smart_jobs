@@ -28,5 +28,6 @@ public interface JobPostRepository extends JpaRepository<JobPost, Long> {
 	List<JobPost> findBySalaryBetween(float minsalary,float maxsalary);
 //	List<JobPost> findBySkillsAndSalary(String sname,float salary);
 //	List<JobPost> findBySkillsAndCompany(String sname,String cname);
+	List<JobPost> findByEmployee_login_userId(String email);
 	 
 }

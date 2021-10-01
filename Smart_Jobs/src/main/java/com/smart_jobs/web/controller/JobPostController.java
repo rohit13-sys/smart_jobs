@@ -6,6 +6,8 @@ import java.util.Optional;
 import javax.websocket.server.PathParam;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -94,9 +96,10 @@ public class JobPostController {
 	
 	//Post new job if new id or update existing job
 	@PostMapping("/addjob")
-	public String addJob(@RequestBody JobPost job) {
+	public ResponseEntity<String> addJob(@RequestBody JobPost job) {
 		System.out.println(job); 
-		return jobServiceRepo.addJob(job);
+		jobServiceRepo.addJob(job);
+		return new ResponseEntity<String>(HttpStatus.OK);
 	}
 	
 	 @DeleteMapping("/delete/{id}") 
@@ -109,6 +112,17 @@ public class JobPostController {
 		}
 	  }
 	
+	 @PostMapping("/findByEmail")
+	 public List<JobPost> findJobByEmpEmail(@RequestParam("email") String emailId){
+		 try {
+			return jobServiceRepo.findJobPostByEmail(emailId);
+		} catch (JobPostNotFound e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
+	 }
+	 
 //	@DeleteMapping("/deletebyskills")s
 //	public void deleteJobBySkill(Optional<JobPost> jb,JobPost job,@RequestParam("skills") String skills) throws JobPostNotFound {
 //		 jobServiceRepo.deleteJobBySkills(jb, job, skills);

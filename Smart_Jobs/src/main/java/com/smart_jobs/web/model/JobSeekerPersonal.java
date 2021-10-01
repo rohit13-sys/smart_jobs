@@ -34,7 +34,7 @@ public class JobSeekerPersonal {
 	@NotNull
 	private String seekerName;
 
-	@NotNull
+	@NotNull		
 	private BigInteger seekerMobile;	
 	
 	private byte[] photo;

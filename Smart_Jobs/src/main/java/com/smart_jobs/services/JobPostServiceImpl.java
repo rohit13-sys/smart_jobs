@@ -10,8 +10,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import com.smart_jobs.exceptions.JobPostNotFound;
 import com.smart_jobs.repository.EmployerRepository;
+import com.smart_jobs.repository.JobActivityRepository;
 import com.smart_jobs.repository.JobPostRepository;
 import com.smart_jobs.repository.SkillsRepo;
+import com.smart_jobs.web.model.JobActivityStatus;
 import com.smart_jobs.web.model.JobPost;
 import com.smart_jobs.web.model.Skills;
 
@@ -34,6 +36,10 @@ public class JobPostServiceImpl implements JobPostService {
 	
 	@Autowired
 	private EmployerRepository employerRepo;
+	
+	@Autowired
+	private JobActivityRepository jsActRepo;
+	
 	public List<JobPost> findAllJobs() throws JobPostNotFound{
 		return jobPostRepo.findAll();
 	}
@@ -73,6 +79,7 @@ public class JobPostServiceImpl implements JobPostService {
 //		return jobPostRepo.findBySkillsAndCompany(sname,cname);
 //	}
 	
+	@Override
 	public String addJob(JobPost job) {
 		job.setEmployee(employerRepo.findByLogin_UserId(job.getEmployee().getLogin().getUserId()).get());
 		Set<Skills> skills = job.getSkills();
@@ -88,11 +95,19 @@ public class JobPostServiceImpl implements JobPostService {
 		return "Job " + job.getJobPostId() + " is posted successfully";
 	}
 //	
+	@Override
 	public String deleteJob(long id) throws JobPostNotFound {
 		  Optional<JobPost> op = jobPostRepo.findById(id);
 			if(op.isPresent()) {
 				JobPost job = op.get();
 				System.out.println("jobs"+job);
+				List<JobActivityStatus> jobas = jsActRepo.findByJobPost_JobPostId(job.getJobPostId());
+				System.out.println(jobas);
+				if(!jobas.isEmpty()) {
+					for(JobActivityStatus jobact : jobas) {
+						jsActRepo.delete(jobact);
+					}
+				}
 				for(Skills skill : job.getSkills()) {
 					skillsRepo.delete(skill);
 				}
@@ -134,6 +149,7 @@ public class JobPostServiceImpl implements JobPostService {
 //			return "Product not found";
 //		}
 //	}
+	@Override
 	public String updateJob(JobPost job) {
 	    Optional<JobPost> op = jobPostRepo.findById(job.getJobPostId());
 		if(op.isPresent()) {
@@ -158,8 +174,10 @@ public class JobPostServiceImpl implements JobPostService {
 			return "sorry! job is not found";
 		}
 
-		
-	
+	@Override
+	public List<JobPost> findJobPostByEmail(String email) throws JobPostNotFound{
+		return jobPostRepo.findByEmployee_login_userId(email);
+	}
 }
 
 
