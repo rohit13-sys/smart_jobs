@@ -101,7 +101,7 @@ public class JobPostController {
 		jobServiceRepo.addJob(job);
 		return new ResponseEntity<String>(HttpStatus.OK);
 	}
-	
+		
 	 @DeleteMapping("/delete/{id}") 
 	  public String deleteJobById(@PathVariable("id") int id){
 	      try {

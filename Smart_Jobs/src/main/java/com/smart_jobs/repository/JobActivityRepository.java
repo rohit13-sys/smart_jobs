@@ -18,9 +18,9 @@ import com.smart_jobs.web.model.JobActivityStatus;
  * 
  */
 import com.smart_jobs.web.model.JobSeekerPersonal;
-public interface JobActivityRepository extends JpaRepository<JobActivityStatus, Integer> {
+public interface JobActivityRepository extends JpaRepository<JobActivityStatus, Long> {
 
-	List<JobActivityStatus> findById(int id);
+	//List<JobActivityStatus> findById(int id);
 	List<JobActivityStatus> findByJobPost(Long i);
 	List<JobActivityStatus> findByJobStatus(String status);
 	JobActivityStatus findByJobPost_JobPostIdAndJspersonal_SrNo(Long jobPostId,Long jobSeekerId);

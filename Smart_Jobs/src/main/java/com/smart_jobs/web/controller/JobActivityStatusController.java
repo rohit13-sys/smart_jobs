@@ -2,11 +2,15 @@ package com.smart_jobs.web.controller;
 
 import java.util.List;
 
+import javax.websocket.server.PathParam;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.smart_jobs.exceptions.AlreadyApplied;
+import com.smart_jobs.exceptions.JobActivityStatusNotFound;
 import com.smart_jobs.exceptions.JobPostNotFound;
 import com.smart_jobs.repository.JobActivityRepository;
 import com.smart_jobs.services.JobActivityStatusService;
@@ -55,6 +60,19 @@ public class JobActivityStatusController {
 
 	}
 
+	@DeleteMapping("/deleteJob/{jobActId}")
+	public ResponseEntity<String> deleteJob(@PathVariable("jobActId") Long jpId) {
+		try {
+			activityStatus.deleteActivityStatus(jpId);
+			return new ResponseEntity<>("Deleted Successfully", HttpStatus.OK);
+		} catch (JobActivityStatusNotFound e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return new ResponseEntity<>(e.getMessage(), HttpStatus.CONFLICT);
+		}	
+	}
+	
+	
 	@GetMapping("/getAppliedJobs")
 	public List<JobPost> findAppliedJobs() throws JobPostNotFound {
 		return activityStatus.findAppliedJobs();

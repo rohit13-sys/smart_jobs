@@ -18,7 +18,7 @@ import com.smart_jobs.web.model.JobPost;
  */
 public interface JobActivityStatusService {
 
-	public List<JobActivityStatus> findActivityStatus(int id) throws JobActivityStatusNotFound;
+	public JobActivityStatus findActivityStatus(Long id) throws JobActivityStatusNotFound;
 	
 //	public List<JobActivityStatus> findStatusByJobId(int jid) throws JobActivityStatusNotFound;
 	
@@ -37,7 +37,11 @@ public interface JobActivityStatusService {
 	 * @author bhargav.parmar@stltech.in
 	 * @description Adding findAppliedJobs method to find the 
 	 * 			applied jobs by job seeker
+	 * 
+	 *
 	 */
+	
+	public String deleteActivityStatus(Long jobASId) throws JobActivityStatusNotFound;
 	public List<JobPost> findAppliedJobs() throws JobPostNotFound;
 	
 	public void applyJobs(JobActivityStatus appliedRequest) throws AlreadyApplied;

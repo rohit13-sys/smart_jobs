@@ -4,6 +4,7 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -44,8 +45,9 @@ public class JobActivityStatusServiceImpl implements JobActivityStatusService {
 
 	JobActivityStatus statusObj = new JobActivityStatus();
 
-	public List<JobActivityStatus> findActivityStatus(int id) throws JobActivityStatusNotFound {
-		return activityRepo.findById(id);
+	@Override
+	public JobActivityStatus findActivityStatus(Long id) throws JobActivityStatusNotFound {
+		return activityRepo.findById(id).get();
 	}
 
 	// change in type int -> BigInteger
@@ -126,4 +128,18 @@ public class JobActivityStatusServiceImpl implements JobActivityStatusService {
 		}
 		
 	}
+
+	@Override
+	public String deleteActivityStatus(Long jobASId) throws JobActivityStatusNotFound {
+		// TODO Auto-generated method stub
+		Optional<JobActivityStatus> joas = activityRepo.findById(jobASId);
+		if(joas.isPresent()) {
+			activityRepo.delete(joas.get());
+			return "JobPost Deleted Successfully";
+		}
+		else {
+			throw new JobActivityStatusNotFound("Sorry!!! JobPostActivityStatus Not found");
+		}
+	}
+
 }
