@@ -40,9 +40,10 @@ public class JsSkills {
 //	@JoinColumn(name = "user_email")
 //	private Login login;
 	
-	@JsonBackReference
+	
 	@ManyToOne
 	@JoinColumn(name = "js_id")
+	@JsonBackReference
 	private JobSeekerPersonal sr_no;
 	public JsSkills() {
 		// TODO Auto-generated constructor stub

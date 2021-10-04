@@ -57,7 +57,7 @@ public class jobSeekerEducationalDetailsImpl implements JobSeekerEducationalDeta
 			= new JobSeekerEducationDetails();
 		
 		JobSeekerEducationDetails educationalDetails 
-				= educationalDetailsReo.findByLogin_UserId(email);
+				= educationalDetailsReo.findByJsPersonalId_Login_UserId(email);
 		
 //		JobSeekerEducationDetails educationalDetails = educationalDetailsReo.findByLogin(login);
 

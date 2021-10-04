@@ -35,14 +35,15 @@ public class JobSeekerPersonalController {
 
 	@PostMapping("/savePersonalDetails")
 	public ResponseEntity<String> savePersonalDetails(@RequestBody JobSeekerPersonal jobSeekerPersonalRequest) {
+//		System.out.println("jos"+jobSeekerPersonalRequest);
 		jobSeekerPersonalService.saveJobSeeker(jobSeekerPersonalRequest);
-		return new ResponseEntity<>("Personal details are saved.", HttpStatus.OK);
+		return new ResponseEntity<>(HttpStatus.OK);
 	}
 //	
 	@PostMapping("/getPersonalDetails/{email}")
 	public JobSeekerPersonal getPersonalDetails(@PathVariable("email") String email) {
 		JobSeekerPersonal js= jobSeekerPersonalService.getJobSeeker(email);
-		System.out.println(">>>>>>>>>>>>>>"+js);
+//		System.out.println(">>>>>>>>>>>>>>"+js);
 		return js;
 	}
 //	

@@ -26,7 +26,7 @@ public class JobSeekerPersonal {
 	@GeneratedValue(strategy = GenerationType.AUTO,generator = "increment")
 	private Long srNo;
 
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.DETACH)
 	@JoinColumn(name="JobSeeker_email")
 	@NotNull
 	private Login login;
@@ -41,18 +41,29 @@ public class JobSeekerPersonal {
 	
 	private byte[] resume;
 	
-	@JsonManagedReference
+	@NotNull
+	private String gender;
+	
+	
 	@OneToMany(mappedBy = "sr_no")
+	@JsonManagedReference
 //	@JoinColumn(name="skill_id")
 	@NotNull
 	private Set<JsSkills> skills;
 
+	@OneToOne(mappedBy = "jsPersonalId")
+	private JobSeekerEducationDetails jsEduId;
+	
+	@OneToOne(mappedBy = "jsPersonalId")
+	private JobSeekerExperienceDetails jsExpId;
+	
 	public JobSeekerPersonal() {
 		super();
 	}
 
 	public JobSeekerPersonal(Long srNo, Login login, String seekerName, BigInteger seekerMobile, byte[] photo,
-			byte[] resume, Set<JsSkills> skills) {
+			byte[] resume, String gender, Set<JsSkills> skills, JobSeekerEducationDetails jsEduId,
+			JobSeekerExperienceDetails jsExpId) {
 		super();
 		this.srNo = srNo;
 		this.login = login;
@@ -60,7 +71,10 @@ public class JobSeekerPersonal {
 		this.seekerMobile = seekerMobile;
 		this.photo = photo;
 		this.resume = resume;
+		this.gender = gender;
 		this.skills = skills;
+		this.jsEduId = jsEduId;
+		this.jsExpId = jsExpId;
 	}
 
 	public Long getSrNo() {
@@ -111,6 +125,14 @@ public class JobSeekerPersonal {
 		this.resume = resume;
 	}
 
+	public String getGender() {
+		return gender;
+	}
+
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+
 	public Set<JsSkills> getSkills() {
 		return skills;
 	}
@@ -119,13 +141,30 @@ public class JobSeekerPersonal {
 		this.skills = skills;
 	}
 
+	public JobSeekerEducationDetails getJsEduId() {
+		return jsEduId;
+	}
+
+	public void setJsEduId(JobSeekerEducationDetails jsEduId) {
+		this.jsEduId = jsEduId;
+	}
+
+	public JobSeekerExperienceDetails getJsExpId() {
+		return jsExpId;
+	}
+
+	public void setJsExpId(JobSeekerExperienceDetails jsExpId) {
+		this.jsExpId = jsExpId;
+	}
+
 	@Override
 	public String toString() {
 		return "JobSeekerPersonal [srNo=" + srNo + ", login=" + login + ", seekerName=" + seekerName + ", seekerMobile="
 				+ seekerMobile + ", photo=" + Arrays.toString(photo) + ", resume=" + Arrays.toString(resume)
-				+ ", skills=" + skills + "]";
+				+ ", gender=" + gender + ", skills=" + skills + ", jsEduId=" + jsEduId + ", jsExpId=" + jsExpId + "]";
 	}
-
+	
+	
 	
 
 	

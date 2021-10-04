@@ -70,7 +70,7 @@ public class JobSeekerExperienceDetailsImpl implements JobSeekerExperienceDetail
 	@Override
 	public JobSeekerExperienceDetails getExperienceDetails(String email) {
 
-		JobSeekerExperienceDetails experienceDetails = experienceDetailsRepo.findByLogin_UserId(email);
+		JobSeekerExperienceDetails experienceDetails = experienceDetailsRepo.findByJsPersonalId_Login_UserId(email);
 
 		return experienceDetails;
 	}

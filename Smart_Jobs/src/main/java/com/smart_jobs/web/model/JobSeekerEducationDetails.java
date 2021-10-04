@@ -8,8 +8,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sun.istack.NotNull;
 
 @Entity
@@ -20,10 +22,11 @@ public class JobSeekerEducationDetails {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long education_id;
 	
-	@ManyToOne
+	@JsonIgnore
+	@OneToOne
 	@JoinColumn(name = "jobseeker_email")
 	@NotNull
-	private Login login;
+	private JobSeekerPersonal jsPersonalId;
 
 	private String hscResult;
 
@@ -43,12 +46,12 @@ public class JobSeekerEducationDetails {
 	public JobSeekerEducationDetails() {
 		// TODO Auto-generated constructor stub
 	}
-
-	public JobSeekerEducationDetails(Long education_id, Login login, String hscResult, String sscResult,
-			String universityName, String startDate, String endDate, double percentage, double cgpa) {
+	
+	public JobSeekerEducationDetails(Long education_id, JobSeekerPersonal jsPersonalId, String hscResult,
+			String sscResult, String universityName, String startDate, String endDate, double percentage, double cgpa) {
 		super();
 		this.education_id = education_id;
-		this.login = login;
+		this.jsPersonalId = jsPersonalId;
 		this.hscResult = hscResult;
 		this.sscResult = sscResult;
 		this.universityName = universityName;
@@ -66,12 +69,12 @@ public class JobSeekerEducationDetails {
 		this.education_id = education_id;
 	}
 
-	public Login getLogin() {
-		return login;
+	public JobSeekerPersonal getJsPersonalId() {
+		return jsPersonalId;
 	}
 
-	public void setLogin(Login login) {
-		this.login = login;
+	public void setJsPersonalId(JobSeekerPersonal jsPersonalId) {
+		this.jsPersonalId = jsPersonalId;
 	}
 
 	public String getHscResult() {
@@ -132,11 +135,12 @@ public class JobSeekerEducationDetails {
 
 	@Override
 	public String toString() {
-		return "JobSeekerEducationDetails [education_id=" + education_id + ", login=" + login + ", hscResult="
-				+ hscResult + ", sscResult=" + sscResult + ", universityName=" + universityName + ", startDate="
-				+ startDate + ", endDate=" + endDate + ", percentage=" + percentage + ", cgpa=" + cgpa + "]";
+		return "JobSeekerEducationDetails [education_id=" + education_id + ", jsPersonalId=" + jsPersonalId
+				+ ", hscResult=" + hscResult + ", sscResult=" + sscResult + ", universityName=" + universityName
+				+ ", startDate=" + startDate + ", endDate=" + endDate + ", percentage=" + percentage + ", cgpa=" + cgpa
+				+ "]";
 	}
 
-		
+	
 	
 } // End of class

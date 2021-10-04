@@ -11,10 +11,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.smart_jobs.repository.JobActivityRepository;
+import com.smart_jobs.repository.JobSeekerEducationalDetailsRepo;
+import com.smart_jobs.repository.JobSeekerExperienceDetailsRepo;
 import com.smart_jobs.repository.JobSeekerPersonalRepo;
 import com.smart_jobs.repository.JsSkillsRepository;
 import com.smart_jobs.repository.LoginRepo;
 import com.smart_jobs.web.model.JobActivityStatus;
+import com.smart_jobs.web.model.JobSeekerEducationDetails;
+import com.smart_jobs.web.model.JobSeekerExperienceDetails;
 import com.smart_jobs.web.model.JobSeekerPersonal;
 import com.smart_jobs.web.model.JsSkills;
 import com.smart_jobs.web.model.Login;
@@ -42,6 +46,12 @@ public class JobSeekerPersonalServiceImpl implements JobSeekerPersonalService {
 	@Autowired
 	private JobActivityRepository jsActRepo;
 
+	@Autowired
+	private JobSeekerEducationalDetailsRepo jsEdRepo;
+	
+	@Autowired
+	private JobSeekerExperienceDetailsRepo jsExRepo;
+	
 	@Override
 	public void saveJobSeeker(JobSeekerPersonal jsPersonal) {
 
@@ -66,8 +76,14 @@ public class JobSeekerPersonalServiceImpl implements JobSeekerPersonalService {
 //		jobSeeker.setLogin();
 		Set<JsSkills> jsSkills = jsPersonal.getSkills();
 		System.out.println(jsPersonal);
+		Login login = loginRepo.saveAndFlush(jsPersonal.getLogin());
 		jsPersonal = jobSeekerRepo.save(jsPersonal);
-		
+		JobSeekerEducationDetails jsEd = jsPersonal.getJsEduId();
+		jsEd.setJsPersonalId(jsPersonal);
+		JobSeekerExperienceDetails jsEx = jsPersonal.getJsExpId();
+		jsEx.setJsPersonalId(jsPersonal);
+		jsEdRepo.save(jsEd);
+		jsExRepo.save(jsEx);
 		for(JsSkills skills: jsSkills) {
 			skills.setSr_no(jsPersonal);
 			jsSkillsRepo.save(skills);
@@ -90,7 +106,7 @@ public class JobSeekerPersonalServiceImpl implements JobSeekerPersonalService {
 		Login login=new Login();
 		//email="xyz@gmail.com";
 		JobSeekerPersonal personalDetails = jobSeekerRepo.findByLogin_UserId(email);
-		System.out.println("Persona;Details>>>>"+personalDetails);
+//		System.out.println("Persona;Details>>>>"+personalDetails);
 		JobSeekerPersonal personalResponse = new JobSeekerPersonal();
 		return personalDetails;
 	}
@@ -103,8 +119,12 @@ public class JobSeekerPersonalServiceImpl implements JobSeekerPersonalService {
 	@Override
 	public void deleteJobSeeker(Long sr_no) {
 		System.out.println(sr_no);
-		System.out.println(jobSeekerRepo.findById(sr_no));
+		JobSeekerPersonal jsPersonal = jobSeekerRepo.findById(sr_no).get();
+		for(JsSkills skills:jsPersonal.getSkills()) {
+			jsSkillsRepo.delete(skills);
+		}
 		jobSeekerRepo.deleteById(sr_no);
+		loginRepo.delete(jsPersonal.getLogin());
 	}
 	
 	@Override

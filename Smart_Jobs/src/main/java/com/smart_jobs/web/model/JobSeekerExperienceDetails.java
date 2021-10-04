@@ -6,8 +6,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sun.istack.NotNull;
 
 @Entity
@@ -18,10 +20,11 @@ public class JobSeekerExperienceDetails {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long exp_id;
 	
-	@ManyToOne
+	@JsonIgnore
+	@OneToOne
 	@JoinColumn(name = "jobseeker_email")
 	@NotNull
-	private Login login;
+	private JobSeekerPersonal jsPersonalId;
 	
 	private String companyName;
 	
@@ -35,11 +38,11 @@ public class JobSeekerExperienceDetails {
 		// TODO Auto-generated constructor stub
 	}
 
-	public JobSeekerExperienceDetails(Long exp_id, Login login, String companyName, double yearOfExp, String jobTitle,
-			String description) {
+	public JobSeekerExperienceDetails(Long exp_id, JobSeekerPersonal jsPersonalId, String companyName, double yearOfExp,
+			String jobTitle, String description) {
 		super();
 		this.exp_id = exp_id;
-		this.login = login;
+		this.jsPersonalId = jsPersonalId;
 		this.companyName = companyName;
 		this.yearOfExp = yearOfExp;
 		this.jobTitle = jobTitle;
@@ -54,12 +57,12 @@ public class JobSeekerExperienceDetails {
 		this.exp_id = exp_id;
 	}
 
-	public Login getLogin() {
-		return login;
+	public JobSeekerPersonal getJsPersonalId() {
+		return jsPersonalId;
 	}
 
-	public void setLogin(Login login) {
-		this.login = login;
+	public void setJsPersonalId(JobSeekerPersonal jsPersonalId) {
+		this.jsPersonalId = jsPersonalId;
 	}
 
 	public String getCompanyName() {
@@ -96,10 +99,12 @@ public class JobSeekerExperienceDetails {
 
 	@Override
 	public String toString() {
-		return "JobSeekerExperienceDetails [exp_id=" + exp_id + ", login=" + login + ", companyName=" + companyName
-				+ ", yearOfExp=" + yearOfExp + ", jobTitle=" + jobTitle + ", description=" + description + "]";
+		return "JobSeekerExperienceDetails [exp_id=" + exp_id + ", jsPersonalId=" + jsPersonalId + ", companyName="
+				+ companyName + ", yearOfExp=" + yearOfExp + ", jobTitle=" + jobTitle + ", description=" + description
+				+ "]";
 	}
 
+	
 	
 		
 } // End of class
