@@ -16,4 +16,5 @@ import com.smart_jobs.web.model.Login;
 
 public interface JobSeekerEducationalDetailsRepo extends JpaRepository<JobSeekerEducationDetails, Long>{
 	public JobSeekerEducationDetails findByLogin(Login login);
+	public JobSeekerEducationDetails findByLogin_UserId(String email);
 }

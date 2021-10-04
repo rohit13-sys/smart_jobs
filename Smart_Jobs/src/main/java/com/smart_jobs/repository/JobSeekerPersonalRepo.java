@@ -18,5 +18,5 @@ import com.smart_jobs.web.model.Login;
 public interface JobSeekerPersonalRepo extends JpaRepository<JobSeekerPersonal,Long> {
 	public JobSeekerPersonal findByLogin(Login login);
 	public void deleteById(Long sr_no);
-	Optional<JobSeekerPersonal> findByLogin_UserId(String email);
+	JobSeekerPersonal findByLogin_UserId(String email);
 }

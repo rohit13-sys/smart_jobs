@@ -26,6 +26,7 @@ public interface JobActivityRepository extends JpaRepository<JobActivityStatus, 
 	JobActivityStatus findByJobPost_JobPostIdAndJspersonal_SrNo(Long jobPostId,Long jobSeekerId);
 	
 	List<JobActivityStatus> findByJobPost_JobPostId(Long jobPostId);
+	List<JobActivityStatus> findAppliedJobsByJspersonal_Login_UserId(String Id);
 	/*
 	 * Finding all the applied jobs using Job seeker email
 	 * 

@@ -17,6 +17,7 @@ import com.smart_jobs.repository.LoginRepo;
 import com.smart_jobs.web.model.JobActivityStatus;
 import com.smart_jobs.web.model.JobSeekerPersonal;
 import com.smart_jobs.web.model.JsSkills;
+import com.smart_jobs.web.model.Login;
 
 /*
  * @author bhargav.parmar@stltech.in
@@ -75,7 +76,7 @@ public class JobSeekerPersonalServiceImpl implements JobSeekerPersonalService {
 	}
 
 	@Override
-	public JobSeekerPersonal getJobSeeker() {
+	public JobSeekerPersonal getJobSeeker(String email) {
 //		String email = principal.getName();
 //		System.out.println(email);
 
@@ -86,14 +87,12 @@ public class JobSeekerPersonalServiceImpl implements JobSeekerPersonalService {
 
 		// Getting Details using foreign key "Login"
 		// Manually insert ID of jobseeker personal 
-		Optional<JobSeekerPersonal> personalDetails = jobSeekerRepo.findById((long) 3001);
-
+		Login login=new Login();
+		//email="xyz@gmail.com";
+		JobSeekerPersonal personalDetails = jobSeekerRepo.findByLogin_UserId(email);
+		System.out.println("Persona;Details>>>>"+personalDetails);
 		JobSeekerPersonal personalResponse = new JobSeekerPersonal();
-		personalResponse.setSeekerName(personalDetails.get().getSeekerName());
-		personalResponse.setSeekerMobile(personalDetails.get().getSeekerMobile());
-		personalResponse.setPhoto(personalDetails.get().getPhoto());
-		personalResponse.setResume(personalDetails.get().getResume());
-		return personalResponse;
+		return personalDetails;
 	}
 
 	@Override

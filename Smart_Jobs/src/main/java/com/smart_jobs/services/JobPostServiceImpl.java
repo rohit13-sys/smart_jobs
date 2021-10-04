@@ -1,5 +1,6 @@
 package com.smart_jobs.services;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -83,6 +84,8 @@ public class JobPostServiceImpl implements JobPostService {
 	public String addJob(JobPost job) {
 		job.setEmployee(employerRepo.findByLogin_UserId(job.getEmployee().getLogin().getUserId()).get());
 		Set<Skills> skills = job.getSkills();
+		job.setActive(true);
+		job.setPostedDate(LocalDate.now());
 		job = jobPostRepo.save(job);
 		System.out.println(skills);
 		for(Skills skill : skills) {

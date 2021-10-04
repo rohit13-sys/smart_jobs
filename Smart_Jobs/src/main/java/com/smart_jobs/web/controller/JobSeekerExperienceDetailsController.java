@@ -3,6 +3,7 @@ package com.smart_jobs.web.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,6 +21,7 @@ import com.smart_jobs.web.model.JobSeekerExperienceDetails;
  * @copyright Sterlite Technologies Ltd.
  */
 
+@CrossOrigin
 @RestController
 @RequestMapping("/api/v1/experience")
 public class JobSeekerExperienceDetailsController {
@@ -35,9 +37,9 @@ public class JobSeekerExperienceDetailsController {
 		return new ResponseEntity<>("Experience Details Saved.", HttpStatus.OK);	
 	}
 	
-	@GetMapping("/getExperienceDetails")
-	public JobSeekerExperienceDetails getExperienceDetails(){
-		return jobSeekerExperienceDetailsService.getExperienceDetails();
+	@PostMapping("/getExperienceDetails/{email}")
+	public JobSeekerExperienceDetails getExperienceDetails(@PathVariable("email") String email){
+		return jobSeekerExperienceDetailsService.getExperienceDetails(email);
 	}
 	
 	@PostMapping("/updateExperienceDetails")

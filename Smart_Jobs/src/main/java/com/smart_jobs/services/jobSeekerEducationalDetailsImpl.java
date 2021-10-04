@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import com.smart_jobs.repository.JobSeekerEducationalDetailsRepo;
 import com.smart_jobs.repository.LoginRepo;
 import com.smart_jobs.web.model.JobSeekerEducationDetails;
-import com.smart_jobs.web.model.Login;
 
 /*
  * @author bhargav.parmar@stltech.in
@@ -23,6 +22,7 @@ public class jobSeekerEducationalDetailsImpl implements JobSeekerEducationalDeta
 	@Autowired
 	private JobSeekerEducationalDetailsRepo educationalDetailsReo;
 
+	@SuppressWarnings("unused")
 	@Autowired
 	private LoginRepo loginRepo;
 
@@ -37,26 +37,17 @@ public class jobSeekerEducationalDetailsImpl implements JobSeekerEducationalDeta
 
 //		Login login = loginRepo.findByUserIdAndPwd(jsEducation.getLogin().getUserId(),
 //				jsEducation.getLogin().getPwd());
-		JobSeekerEducationDetails jsEduDetails = 
-				new JobSeekerEducationDetails();
 		
 		// Here we have add ID of login interms of finding login 
 		// This is due to no use of spring security
 		//Optional<Login> login = loginRepo.findById((long) 1);
 
-		jsEduDetails.setHSC_result(jsEducation.getHSC_result());
-		jsEduDetails.setSSC_result(jsEducation.getSSC_result());
-		jsEduDetails.setUniversity_name(jsEducation.getUniversity_name());
-		jsEduDetails.setStart_date(jsEducation.getStart_date());
-		jsEduDetails.setEnd_date(jsEducation.getEnd_date());
-		jsEduDetails.setPercentage(jsEducation.getPercentage());
-		jsEduDetails.setCgpa(jsEducation.getCgpa());
-		//jsEduDetails.setLogin(login.get());
+		
 		educationalDetailsReo.save(jsEducation);
 	}
 
 	@Override
-	public JobSeekerEducationDetails getEducationalDetails() {
+	public JobSeekerEducationDetails getEducationalDetails(String email) {
 		
 //		String email = principal.getName();
 //		System.out.println(email);
@@ -65,19 +56,12 @@ public class jobSeekerEducationalDetailsImpl implements JobSeekerEducationalDeta
 		JobSeekerEducationDetails educationalDetailsResponse 
 			= new JobSeekerEducationDetails();
 		
-		Optional<JobSeekerEducationDetails> educationalDetails 
-				= educationalDetailsReo.findById((long) 3001);
-
+		JobSeekerEducationDetails educationalDetails 
+				= educationalDetailsReo.findByLogin_UserId(email);
+		
 //		JobSeekerEducationDetails educationalDetails = educationalDetailsReo.findByLogin(login);
 
-		educationalDetailsResponse.setHSC_result(educationalDetails.get().getHSC_result());
-		educationalDetailsResponse.setSSC_result(educationalDetails.get().getSSC_result());
-		educationalDetailsResponse.setUniversity_name(educationalDetails.get().getUniversity_name());
-		educationalDetailsResponse.setStart_date(educationalDetails.get().getStart_date());
-		educationalDetailsResponse.setEnd_date(educationalDetails.get().getEnd_date());
-		educationalDetailsResponse.setCgpa(educationalDetails.get().getCgpa());
-		educationalDetailsResponse.setHSC_result(educationalDetails.get().getHSC_result());
-		return educationalDetailsResponse;
+		return educationalDetails;
 	}
 
 	@Override

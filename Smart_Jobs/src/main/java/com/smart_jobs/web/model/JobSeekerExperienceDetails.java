@@ -21,15 +21,13 @@ public class JobSeekerExperienceDetails {
 	@ManyToOne
 	@JoinColumn(name = "jobseeker_email")
 	@NotNull
-	private Login Login;
+	private Login login;
 	
-	private String company_name;
+	private String companyName;
 	
-	private boolean is_current_Active=false;
+	private double yearOfExp;
 	
-	private double year_of_exp;
-	
-	private String job_title;
+	private String jobTitle;
 	
 	private String description;
 	
@@ -37,15 +35,14 @@ public class JobSeekerExperienceDetails {
 		// TODO Auto-generated constructor stub
 	}
 
-	public JobSeekerExperienceDetails(Long exp_id, com.smart_jobs.web.model.Login login, String company_name,
-			boolean is_current_Active, double year_of_exp, String job_title, String description) {
+	public JobSeekerExperienceDetails(Long exp_id, Login login, String companyName, double yearOfExp, String jobTitle,
+			String description) {
 		super();
 		this.exp_id = exp_id;
-		Login = login;
-		this.company_name = company_name;
-		this.is_current_Active = is_current_Active;
-		this.year_of_exp = year_of_exp;
-		this.job_title = job_title;
+		this.login = login;
+		this.companyName = companyName;
+		this.yearOfExp = yearOfExp;
+		this.jobTitle = jobTitle;
 		this.description = description;
 	}
 
@@ -58,43 +55,35 @@ public class JobSeekerExperienceDetails {
 	}
 
 	public Login getLogin() {
-		return Login;
+		return login;
 	}
 
 	public void setLogin(Login login) {
-		Login = login;
+		this.login = login;
 	}
 
-	public String getCompany_name() {
-		return company_name;
+	public String getCompanyName() {
+		return companyName;
 	}
 
-	public void setCompany_name(String company_name) {
-		this.company_name = company_name;
+	public void setCompanyName(String companyName) {
+		this.companyName = companyName;
 	}
 
-	public boolean getIs_current_Active() {
-		return is_current_Active;
+	public double getYearOfExp() {
+		return yearOfExp;
 	}
 
-	public void setIs_current_Active(boolean is_current_Active) {
-		this.is_current_Active = is_current_Active;
+	public void setYearOfExp(double yearOfExp) {
+		this.yearOfExp = yearOfExp;
 	}
 
-	public double getYear_of_exp() {
-		return year_of_exp;
+	public String getJobTitle() {
+		return jobTitle;
 	}
 
-	public void setYear_of_exp(double year_of_exp) {
-		this.year_of_exp = year_of_exp;
-	}
-
-	public String getJob_title() {
-		return job_title;
-	}
-
-	public void setJob_title(String job_title) {
-		this.job_title = job_title;
+	public void setJobTitle(String jobTitle) {
+		this.jobTitle = jobTitle;
 	}
 
 	public String getDescription() {
@@ -107,8 +96,10 @@ public class JobSeekerExperienceDetails {
 
 	@Override
 	public String toString() {
-		return "JsExp_Details [exp_id=" + exp_id + ", Login=" + Login + ", company_name=" + company_name
-				+ ", is_current_Active=" + is_current_Active + ", year_of_exp=" + year_of_exp + ", job_title="
-				+ job_title + ", description=" + description + "]";
+		return "JobSeekerExperienceDetails [exp_id=" + exp_id + ", login=" + login + ", companyName=" + companyName
+				+ ", yearOfExp=" + yearOfExp + ", jobTitle=" + jobTitle + ", description=" + description + "]";
 	}
+
+	
+		
 } // End of class

@@ -1,6 +1,5 @@
 package com.smart_jobs.services;
 
-import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -113,7 +112,7 @@ public class JobActivityStatusServiceImpl implements JobActivityStatusService {
 //		appliedJobs.setApplyDate(appliedRequest.getApplyDate());
 //		appliedJobs.setRejectedDate(appliedRequest.getRejectedDate());
 //		appliedJobs.setJobStatus(appliedRequest.getJobStatus());
-		JobSeekerPersonal js = jobskRepo.findByLogin_UserId(appliedRequest.getJspersonal().getLogin().getUserId()).get();
+		JobSeekerPersonal js = jobskRepo.findByLogin_UserId(appliedRequest.getJspersonal().getLogin().getUserId());
 		JobActivityStatus jas = activityRepo.findByJobPost_JobPostIdAndJspersonal_SrNo(appliedRequest.getJobPost().getJobPostId(), js.getSrNo());
 		System.out.println("postId" + appliedRequest.getJobPost());
 		System.out.println("seekerId" + appliedRequest.getJspersonal());
@@ -142,4 +141,6 @@ public class JobActivityStatusServiceImpl implements JobActivityStatusService {
 		}
 	}
 
+	
+	
 }

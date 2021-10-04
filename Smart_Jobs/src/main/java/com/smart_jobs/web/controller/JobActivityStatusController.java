@@ -54,9 +54,9 @@ public class JobActivityStatusController {
 		} catch (AlreadyApplied e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			return new ResponseEntity<>("Sorry Already Applied", HttpStatus.CONFLICT);
+			return new ResponseEntity<>(HttpStatus.CONFLICT);
 		}
-		return new ResponseEntity<>("Applied Successfully", HttpStatus.OK);
+		return new ResponseEntity<>(HttpStatus.OK);
 
 	}
 
@@ -64,11 +64,11 @@ public class JobActivityStatusController {
 	public ResponseEntity<String> deleteJob(@PathVariable("jobActId") Long jpId) {
 		try {
 			activityStatus.deleteActivityStatus(jpId);
-			return new ResponseEntity<>("Deleted Successfully", HttpStatus.OK);
+			return new ResponseEntity<>(HttpStatus.OK);
 		} catch (JobActivityStatusNotFound e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			return new ResponseEntity<>(e.getMessage(), HttpStatus.CONFLICT);
+			return new ResponseEntity<>(HttpStatus.CONFLICT);
 		}	
 	}
 	
@@ -86,5 +86,10 @@ public class JobActivityStatusController {
 	@PostMapping("/findJobSeeker")
 	public List<JobSeekerPersonal> findjobSeeker(@RequestParam("jbid") Long jbId) {
 		return jsService.findJsByJpId(jbId);
+	}
+	
+	@GetMapping("/getAppliedJobs/{id}")
+	public List<JobActivityStatus> findAppliedJobs(@PathVariable("id") String id) throws JobPostNotFound {
+		return activityRepo.findAppliedJobsByJspersonal_Login_UserId(id);
 	}
 }

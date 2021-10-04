@@ -13,7 +13,7 @@ public interface JobSeekerEducationalDetailsService {
 
 	public void saveEducationalDetails(JobSeekerEducationDetails jsEducation);
 
-	public JobSeekerEducationDetails getEducationalDetails();
+	public JobSeekerEducationDetails getEducationalDetails(String email);
 
 	public void updateEducationalDetails(JobSeekerEducationDetails jsEducation);
 

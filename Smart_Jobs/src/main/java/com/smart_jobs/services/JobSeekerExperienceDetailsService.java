@@ -17,6 +17,6 @@ public interface JobSeekerExperienceDetailsService {
 	public void saveExperienceDetails(JobSeekerExperienceDetails experienceDetails);
 	public void updateExperienceDetails(JobSeekerExperienceDetails experienceDetailsRequest);
 	public void deleteExperienceDetails(Long exp_id);
-	public JobSeekerExperienceDetails getExperienceDetails();
+	public JobSeekerExperienceDetails getExperienceDetails(String email);
 
 }

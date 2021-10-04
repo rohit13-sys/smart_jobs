@@ -25,16 +25,16 @@ public class JobSeekerEducationDetails {
 	@NotNull
 	private Login login;
 
-	private double HSC_result;
+	private String hscResult;
 
-	private double SSC_result;
+	private String sscResult;
 
 	@NotNull
-	private String university_name;
+	private String universityName;
 
-	private Date start_date;
+	private String startDate;
 
-	private Date end_date;
+	private String endDate;
 
 	private double percentage;
 
@@ -44,16 +44,16 @@ public class JobSeekerEducationDetails {
 		// TODO Auto-generated constructor stub
 	}
 
-	public JobSeekerEducationDetails(Long education_id, Login login, double hSC_result, double sSC_result,
-			String university_name, Date start_date, Date end_date, double percentage, double cgpa) {
+	public JobSeekerEducationDetails(Long education_id, Login login, String hscResult, String sscResult,
+			String universityName, String startDate, String endDate, double percentage, double cgpa) {
 		super();
 		this.education_id = education_id;
 		this.login = login;
-		HSC_result = hSC_result;
-		SSC_result = sSC_result;
-		this.university_name = university_name;
-		this.start_date = start_date;
-		this.end_date = end_date;
+		this.hscResult = hscResult;
+		this.sscResult = sscResult;
+		this.universityName = universityName;
+		this.startDate = startDate;
+		this.endDate = endDate;
 		this.percentage = percentage;
 		this.cgpa = cgpa;
 	}
@@ -74,44 +74,44 @@ public class JobSeekerEducationDetails {
 		this.login = login;
 	}
 
-	public double getHSC_result() {
-		return HSC_result;
+	public String getHscResult() {
+		return hscResult;
 	}
 
-	public void setHSC_result(double hSC_result) {
-		HSC_result = hSC_result;
+	public void setHscResult(String hscResult) {
+		this.hscResult = hscResult;
 	}
 
-	public double getSSC_result() {
-		return SSC_result;
+	public String getSscResult() {
+		return sscResult;
 	}
 
-	public void setSSC_result(double sSC_result) {
-		SSC_result = sSC_result;
+	public void setSscResult(String sscResult) {
+		this.sscResult = sscResult;
 	}
 
-	public String getUniversity_name() {
-		return university_name;
+	public String getUniversityName() {
+		return universityName;
 	}
 
-	public void setUniversity_name(String university_name) {
-		this.university_name = university_name;
+	public void setUniversityName(String universityName) {
+		this.universityName = universityName;
 	}
 
-	public Date getStart_date() {
-		return start_date;
+	public String getStartDate() {
+		return startDate;
 	}
 
-	public void setStart_date(Date start_date) {
-		this.start_date = start_date;
+	public void setStartDate(String startDate) {
+		this.startDate = startDate;
 	}
 
-	public Date getEnd_date() {
-		return end_date;
+	public String getEndDate() {
+		return endDate;
 	}
 
-	public void setEnd_date(Date end_date) {
-		this.end_date = end_date;
+	public void setEndDate(String endDate) {
+		this.endDate = endDate;
 	}
 
 	public double getPercentage() {
@@ -132,8 +132,11 @@ public class JobSeekerEducationDetails {
 
 	@Override
 	public String toString() {
-		return "JsEducation_details [education_id=" + education_id + ", login=" + login + ", HSC_result=" + HSC_result
-				+ ", SSC_result=" + SSC_result + ", university_name=" + university_name + ", start_date=" + start_date
-				+ ", end_date=" + end_date + ", percentage=" + percentage + ", cgpa=" + cgpa + "]";
+		return "JobSeekerEducationDetails [education_id=" + education_id + ", login=" + login + ", hscResult="
+				+ hscResult + ", sscResult=" + sscResult + ", universityName=" + universityName + ", startDate="
+				+ startDate + ", endDate=" + endDate + ", percentage=" + percentage + ", cgpa=" + cgpa + "]";
 	}
+
+		
+	
 } // End of class

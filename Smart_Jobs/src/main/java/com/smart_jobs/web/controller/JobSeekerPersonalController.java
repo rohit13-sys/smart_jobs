@@ -3,11 +3,13 @@ package com.smart_jobs.web.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.smart_jobs.services.JobSeekerPersonalService;
@@ -23,6 +25,7 @@ import com.smart_jobs.web.model.JobSeekerPersonal;
  * 				is provided.
  */
 
+@CrossOrigin
 @RestController
 @RequestMapping("api/v1/personal")
 public class JobSeekerPersonalController {
@@ -36,9 +39,11 @@ public class JobSeekerPersonalController {
 		return new ResponseEntity<>("Personal details are saved.", HttpStatus.OK);
 	}
 //	
-	@GetMapping("/getPersonalDetails")
-	public JobSeekerPersonal getPersonalDetails() {
-		return jobSeekerPersonalService.getJobSeeker();	
+	@PostMapping("/getPersonalDetails/{email}")
+	public JobSeekerPersonal getPersonalDetails(@PathVariable("email") String email) {
+		JobSeekerPersonal js= jobSeekerPersonalService.getJobSeeker(email);
+		System.out.println(">>>>>>>>>>>>>>"+js);
+		return js;
 	}
 //	
 	@PostMapping("/updatePersonalDetails")
