@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.smart_jobs.exceptions.EmployerAlreadyExists;
 import com.smart_jobs.exceptions.EmployerNotFound;
+import com.smart_jobs.exceptions.JobPostNotFound;
 import com.smart_jobs.services.EmployerService;
 import com.smart_jobs.web.model.Employer;
 
@@ -66,7 +67,7 @@ public class EmployerController {
 	public String deleteEmployee(@RequestParam("eid") String empId,@RequestParam("pwd") String epassword) {
 		try {
 				return empService.delete(empId, epassword);
-		} catch (EmployerNotFound e) {
+		} catch (EmployerNotFound | JobPostNotFound e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return e.getMessage();

@@ -4,7 +4,10 @@ import java.security.Principal;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.smart_jobs.exceptions.JobActivityStatusNotFound;
+import com.smart_jobs.exceptions.JobSeekerNotFound;
 import com.smart_jobs.web.model.JobSeekerPersonal;
 
 /*
@@ -23,9 +26,11 @@ public interface JobSeekerPersonalService {
 
 	public void updateJobSeeker(JobSeekerPersonal jsPersonal);
 
-	public void deleteJobSeeker(Long sr_no);
+	public void deleteJobSeeker(Long sr_no) throws JobActivityStatusNotFound,JobSeekerNotFound;
 
 	public JobSeekerPersonal getJobSeeker(String email);
 
 	List<JobSeekerPersonal> findJsByJpId(Long JbId);
+	
+	public void saveImage(MultipartFile file,String id);
 }

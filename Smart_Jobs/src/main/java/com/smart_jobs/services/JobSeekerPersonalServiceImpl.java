@@ -1,5 +1,6 @@
 package com.smart_jobs.services;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -9,7 +10,10 @@ import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.smart_jobs.exceptions.JobActivityStatusNotFound;
+import com.smart_jobs.exceptions.JobSeekerNotFound;
 import com.smart_jobs.repository.JobActivityRepository;
 import com.smart_jobs.repository.JobSeekerEducationalDetailsRepo;
 import com.smart_jobs.repository.JobSeekerExperienceDetailsRepo;
@@ -45,6 +49,9 @@ public class JobSeekerPersonalServiceImpl implements JobSeekerPersonalService {
 	
 	@Autowired
 	private JobActivityRepository jsActRepo;
+	
+	@Autowired
+	private JobActivityStatusService jsActServ;
 
 	@Autowired
 	private JobSeekerEducationalDetailsRepo jsEdRepo;
@@ -117,11 +124,24 @@ public class JobSeekerPersonalServiceImpl implements JobSeekerPersonalService {
 	}
 	
 	@Override
-	public void deleteJobSeeker(Long sr_no) {
+	public void deleteJobSeeker(Long sr_no) throws JobActivityStatusNotFound,JobSeekerNotFound {
 		System.out.println(sr_no);
-		JobSeekerPersonal jsPersonal = jobSeekerRepo.findById(sr_no).get();
+		Optional<JobSeekerPersonal> jsP = jobSeekerRepo.findById(sr_no);
+		if(!jsP.isPresent()) {
+			throw new JobSeekerNotFound("Sorry JobSeeker Not Found!!!");
+		}
+		JobSeekerPersonal jsPersonal = jsP.get();
 		for(JsSkills skills:jsPersonal.getSkills()) {
 			jsSkillsRepo.delete(skills);
+		}
+		jsEdRepo.delete(jsPersonal.getJsEduId());
+		if(jsPersonal.getJsExpId()!=null)
+			jsExRepo.delete(jsPersonal.getJsExpId());
+		List<JobActivityStatus> jsAct = jsActRepo.findAppliedJobsByJspersonal_Login_UserId(jsPersonal.getLogin().getUserId());
+		if(jsAct!=null) {
+			for(JobActivityStatus js:jsAct) {
+				jsActServ.deleteActivityStatus(js.getJobStatusId());
+			}
 		}
 		jobSeekerRepo.deleteById(sr_no);
 		loginRepo.delete(jsPersonal.getLogin());
@@ -130,12 +150,25 @@ public class JobSeekerPersonalServiceImpl implements JobSeekerPersonalService {
 	@Override
 	public List<JobSeekerPersonal> findJsByJpId(Long JbId) {
 		List<JobActivityStatus> jobas = jsActRepo.findByJobPost_JobPostId(JbId);
-		System.out.println(jobas);
+		//System.out.println(jobas);
 		List<JobSeekerPersonal> apJobSeekers = new ArrayList<>(); 
 		for(JobActivityStatus job: jobas) {
 			apJobSeekers.add(job.getJspersonal());
 		}
 		return apJobSeekers;
+	}
+
+	@Override
+	public void saveImage(MultipartFile file, String id) {
+		// TODO Auto-generated method stub
+		JobSeekerPersonal jsp = jobSeekerRepo.findByLogin_UserId(id);
+		try {
+			jsp.setPhoto(file.getBytes());
+			jobSeekerRepo.save(jsp);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 }

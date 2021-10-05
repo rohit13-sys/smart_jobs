@@ -11,7 +11,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.smart_jobs.exceptions.JobActivityStatusNotFound;
+import com.smart_jobs.exceptions.JobSeekerNotFound;
 import com.smart_jobs.services.JobSeekerPersonalService;
 import com.smart_jobs.web.model.JobSeekerPersonal;
 
@@ -56,7 +59,20 @@ public class JobSeekerPersonalController {
 	
 	@PostMapping("/deletePersonalDetails/{sr_no}")
 	public ResponseEntity<String> deletePersonalDetails(@PathVariable Long sr_no){
-		jobSeekerPersonalService.deleteJobSeeker(sr_no);
+		try {
+			jobSeekerPersonalService.deleteJobSeeker(sr_no);
+		} catch (JobActivityStatusNotFound | JobSeekerNotFound e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return new ResponseEntity<>("Sorry!!! JobSeeker Not found.", HttpStatus.CONFLICT);
+		}
 		return new ResponseEntity<>("Personal details are deleted.", HttpStatus.OK);
+	}
+	
+	@PostMapping("/upload")
+	public void uploadImage(@RequestParam("myFile") MultipartFile file,@RequestParam("jsId") String jSeekerId) {
+		System.out.println("file");
+		jobSeekerPersonalService.saveImage(file, jSeekerId); 
+		
 	}
 }

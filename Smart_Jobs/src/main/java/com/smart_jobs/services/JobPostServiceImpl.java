@@ -103,9 +103,9 @@ public class JobPostServiceImpl implements JobPostService {
 		  Optional<JobPost> op = jobPostRepo.findById(id);
 			if(op.isPresent()) {
 				JobPost job = op.get();
-				System.out.println("jobs"+job);
+				//System.out.println("jobs"+job);
 				List<JobActivityStatus> jobas = jsActRepo.findByJobPost_JobPostId(job.getJobPostId());
-				System.out.println(jobas);
+				//System.out.println(jobas);
 				if(!jobas.isEmpty()) {
 					for(JobActivityStatus jobact : jobas) {
 						jsActRepo.delete(jobact);

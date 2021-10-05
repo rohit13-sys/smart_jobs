@@ -11,6 +11,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.sun.istack.NotNull;
 
 /* @author parthkumar.panchal
@@ -24,6 +27,7 @@ import com.sun.istack.NotNull;
 @Table(name = "Employer_reg")
 public class Employer {
 
+	private static final Logger LOGGER=LogManager.getLogger(Employer.class);
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO,generator = "increment")
@@ -54,6 +58,7 @@ public class Employer {
 
 	public Employer() {
 		// TODO Auto-generated constructor stub
+		LOGGER.info("Employer Instance Created!!!");
 	}
 
 	public Employer(Long employerNo, Login login, String employerName, Long phoneNo, Long branchOfficeId,

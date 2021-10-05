@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -37,6 +38,7 @@ public class JobSeekerPersonal {
 	@NotNull		
 	private BigInteger seekerMobile;	
 	
+	@Lob
 	private byte[] photo;
 	
 	private byte[] resume;
